@@ -1,4 +1,4 @@
-# hotel
+# vue-demo
 
 > A Vue.js project
 
@@ -19,3 +19,10 @@ npm run build --report
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+## 具有以下依赖，已经封装好
++ ElementUI
++ js-cookie
++ Vuex
++ vue-router
++ Axios
