@@ -1,23 +1,95 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'App'
-}
+  export default {
+    name: 'app',
+  }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  body {
+    margin: 0;
+    padding: 0;
+    /*background: url(assets/bg1.jpg) center !important;
+        background-size: cover;*/
+    background: #e9e9e9;
+
+    font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, SimSun, sans-serif;
+    font-size: 14px;
+    -webkit-font-smoothing: antialiased;
+
+  }
+  #app {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    margin-top: 0;
+  }
+  .el-dialog__header {
+    background-color: #707880;
+    border: 1px solid #ffffff;
+  }
+  .el-dialog__title {
+    color: #fff;
+  }
+
+  .el-table th {
+    background-color: #eef1f6;
+    text-align: left;
+    color: black;
+  }
+  .top_row {
+    width: 100%;
+    height: 100px;
+    line-height: 100px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #DCDFE6;
+    margin-bottom: 10px;
+  }
+  .search {
+    float: left;
+    margin-left: 20px;
+    width: calc(100% - 40px);
+    height: 60px;
+    line-height: 60px;
+    font-size: 14px;
+  }
+  .title1 {
+    float: left;
+    margin-left: 20px;
+    width: calc(100% - 40px);
+    height: 40px;
+    line-height: 40px;
+    font-size: 16px;
+    color: #000000;
+    text-align: left;
+    border-bottom: 1px solid #DCDFE6;
+  }
+  .aaa_table {
+    margin-top: 20px;
+    width: 94%;
+    height: 500px;
+    padding: 10px 10px 10px 10px;
+    overflow: auto;
+    margin-left: 3%;
+    background-color: #ffffff;
+  }
+  .dialogDetail {
+    border: 1px solid #DCDFE6;
+    font-size: 15px;
+  }
+
+  .dialogDetail .title {
+    text-align: right;
+  }
+  .dialogDetail .content {
+    text-align: left;
+    color: #909399;
+  }
 </style>

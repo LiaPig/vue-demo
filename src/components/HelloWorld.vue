@@ -1,113 +1,67 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li>
-        <a
-          href="https://vuejs.org"
-          target="_blank"
-        >
-          Core Docs
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://forum.vuejs.org"
-          target="_blank"
-        >
-          Forum
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://chat.vuejs.org"
-          target="_blank"
-        >
-          Community Chat
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://twitter.com/vuejs"
-          target="_blank"
-        >
-          Twitter
-        </a>
-      </li>
-      <br>
-      <li>
-        <a
-          href="http://vuejs-templates.github.io/webpack/"
-          target="_blank"
-        >
-          Docs for This Template
-        </a>
-      </li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li>
-        <a
-          href="http://router.vuejs.org/"
-          target="_blank"
-        >
-          vue-router
-        </a>
-      </li>
-      <li>
-        <a
-          href="http://vuex.vuejs.org/"
-          target="_blank"
-        >
-          vuex
-        </a>
-      </li>
-      <li>
-        <a
-          href="http://vue-loader.vuejs.org/"
-          target="_blank"
-        >
-          vue-loader
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/awesome-vue"
-          target="_blank"
-        >
-          awesome-vue
-        </a>
-      </li>
-    </ul>
+  <div id="app">
+    <top-nav class="top-nav"></top-nav>
+    <left-nav class="left-nav"></left-nav>
+    <div class="content">
+      <router-view/>
+    </div>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'HelloWorld',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
+  // 引入顶栏组件
+  import topNav from '../components/layout/topNav'
+  // 引入左边菜单栏组件
+  import leftNav from '../components/layout/leftNav'
+  export default {
+    name: 'App',
+    // 声明一下引用的组件们
+    components: {
+      topNav, leftNav
     }
   }
-}
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h1, h2 {
-  font-weight: normal;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+<style>
+  #app {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+  }
+  .left-nav {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 200px;
+    height: 100%;
+    background-color: rgb(67, 74, 80);
+  }
+  .top-nav {
+    position: absolute;
+    left: 200px;
+    width: calc(100% - 200px);
+  }
+  .content {
+    position: absolute;
+    left: 200px;
+    top: 68px;
+    width: calc(100% - 200px);
+    height: calc(100% - 68px);
+    background-color: #fff;
+  }
+  .my-title {
+    padding-left: 20px;
+    display: inline-block;
+    width: calc(100% - 20px);
+    height: 30px;
+    line-height: 30px;
+    text-align: left;
+    background-color: #fff;
+    border-bottom: 1px solid #d8dce5;
+  }
+  .el-pagination {
+    margin-top: 50px;
+  }
 </style>
