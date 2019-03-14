@@ -2,7 +2,7 @@
   <div>
     <!--标题行-->
     <div class="my-title">客房信息管理</div>
-    <!--员工信息管理表格-->
+    <!--客房信息管理表格-->
     <el-row class="aaa_table" v-loading="tableLoading" element-loading-text="拼命加载中">
       <template style="">
         <el-table
@@ -16,27 +16,30 @@
           <el-table-column
             sortable
             prop="id"
-            label="员工ID">
+            label="客房ID">
           </el-table-column>
           <el-table-column
             sortable
-            prop="loginName"
-            label="用户名">
+            prop="name"
+            label="房间号">
           </el-table-column>
           <el-table-column
             sortable
-            prop="userName"
-            label="真实姓名">
+            prop="type"
+            label="房间类型">
           </el-table-column>
           <el-table-column
             sortable
-            prop="phone"
-            label="手机号码">
+            label="是否有效">
+            <template slot-scope="scope">
+              <template v-if="tableData.status === '1'">是</template>
+              <template v-else-if="tableData.status === '0'">否</template>
+            </template>
           </el-table-column>
           <el-table-column
             sortable
-            prop="email"
-            label="邮箱地址">
+            prop="nowStatus"
+            label="当前状态">
           </el-table-column>
           <el-table-column
             sortable
@@ -58,62 +61,51 @@
     </el-row>
 
     <!--编辑弹出框-->
-    <el-dialog title="编辑员工信息" :visible.sync="showDialog" width="65%">
+    <el-dialog title="编辑客房信息" :visible.sync="showDialog" width="65%">
       <el-form :model="form" ref="form" label-width="100px" :rules="formRules">
-        <!--用户名-->
+        <!--房间号-->
         <el-row>
           <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
-            <el-form-item label="用户名：" prop="loginName">
-              <el-input v-model="form.loginName" placeholder="请输入用户名"></el-input>
+            <el-form-item label="房间号：" prop="room">
+              <el-input v-model="form.room" placeholder="请输入房间号"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
-        <!--真实姓名-->
+        <!--房间类型-->
         <el-row>
           <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
-            <el-form-item label="真实姓名：" prop="realName">
-              <el-input v-model="form.realName" placeholder="请输入真实姓名"></el-input>
+            <el-form-item label="房间类型：" prop="type">
+              <el-select v-model="form.type" placeholder="请选择房间类型" style="width: 100%">
+                <el-option
+                  v-for="item in options"
+                  :key="item.id"
+                  :label="item.name"
+                  :value="item.id">
+                </el-option>
+              </el-select>
             </el-form-item>
           </el-col>
         </el-row>
-        <!--密码-->
+        <!--是否有效-->
         <el-row>
           <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
-            <el-form-item label="密码：" prop="password">
-              <el-input v-model="form.password" type="password" placeholder="请输入密码"></el-input>
+            <el-form-item label="是否有效：" prop="status">
+              <el-select v-model="form.status" placeholder="请选择是否有效" style="width: 100%">
+                <el-option label="有" value="1"></el-option>
+                <el-option label="无" value="0"></el-option>
+              </el-select>
             </el-form-item>
           </el-col>
         </el-row>
-        <!--性别-->
+        <!--当前状态-->
         <el-row>
           <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
-            <el-form-item prop="sex" label="性别：">
-              <el-switch
-                v-model="form.sex"
-                active-color="#ff4949"
-                inactive-color="#13ce66"
-                active-text="女"
-                inactive-text="男"
-                active-value="女"
-                inactive-value="男"
-                style="float: left;margin-top: 10px;margin-left: 10px;">
-              </el-switch>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <!--电话号码-->
-        <el-row>
-          <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
-            <el-form-item label="电话号码：" prop="phone">
-              <el-input v-model="form.phone" placeholder="请输入电话号码"></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <!--身份证号-->
-        <el-row>
-          <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
-            <el-form-item label="身份证号：" prop="idCard">
-              <el-input v-model="form.idCard" placeholder="请输入身份证号"></el-input>
+            <el-form-item label="当前状态：" prop="nowStatus">
+              <el-select v-model="form.nowStatus" placeholder="请选择当前状态" style="width: 100%">
+                <el-option label="空闲" value="空闲"></el-option>
+                <el-option label="预定" value="预定"></el-option>
+                <el-option label="入住" value="入住"></el-option>
+              </el-select>
             </el-form-item>
           </el-col>
         </el-row>
@@ -124,31 +116,30 @@
       </div>
     </el-dialog>
     <!--详情弹窗-->
-    <el-dialog title="查看员工详情" :visible.sync="showDetail">
+    <el-dialog title="查看客房信息详情" :visible.sync="showDetail">
       <div class="dialogDetail">
         <div class="row">
-          <span class="label">员工ID：</span>
+          <span class="label">客房ID：</span>
           <span class="text">{{ detail.id }}</span>
         </div>
         <div class="row">
-          <span class="label">登录账号：</span>
-          <span class="text">{{ detail.loginName }}</span>
+          <span class="label">房间号：</span>
+          <span class="text">{{ detail.room }}</span>
         </div>
         <div class="row">
-          <span class="label">真实姓名：</span>
-          <span class="text">{{ detail.userName }}</span>
+          <span class="label">房间类型：</span>
+          <span class="text">{{ detail.type }}</span>
         </div>
         <div class="row">
-          <span class="label">手机号码：</span>
-          <span class="text">{{ detail.phone }}</span>
+          <span class="label">是否有效：</span>
+          <span class="text">
+            <template v-if="detail.status === '1'">是</template>
+            <template v-else-if="detail.status === '2'">否</template>
+          </span>
         </div>
         <div class="row">
-          <span class="label">邮箱地址：</span>
-          <span class="text">{{ detail.email }}</span>
-        </div>
-        <div class="row">
-          <span class="label">角色权限：</span>
-          <span class="text">员工</span>
+          <span class="label">当前状态：</span>
+          <span class="text">{{ detail.nowStatus }}</span>
         </div>
         <div class="row">
           <span class="label">创建时间：</span>
@@ -174,38 +165,32 @@
         // 表格的loading
         tableLoading: false,
 
+        // 房间类型选项
+        options: [],
+
         // 是否显示编辑弹窗
         showDialog: false,
         // 录入弹窗里的表单
         form: {
-          loginName: "",
-          realName: '',
-          password: "",
-          sex: '',
-          idCard: '',
-          phone: ''
+          hotel_id: 1,
+          room: null,
+          type: null,
+          status: null,
+          nowStatus: null
         },
         // 表单验证
         formRules: {
-          loginName: [
-            { required: true, message: '请输入用户名', trigger: 'blur' }
+          room: [
+            { required: true, message: '请填写房间号', trigger: 'blur' }
           ],
-          realName: [
-            { required: true, message: '请输入真实姓名', trigger: 'blur' }
+          type: [
+            { required: true, message: '请选择房间类型', trigger: 'change' },
           ],
-          password: [
-            { required: true, message: '请输入密码', trigger: 'blur' }
+          status: [
+            { required: true, message: '请选择是否有效', trigger: 'change' },
           ],
-          sex: [
-            { required: true, message: '请选择性别', trigger: 'change' }
-          ],
-          phone: [
-            { required: true, message: '请输入手机号码', trigger: 'blur' },
-            { pattern: /^1[3456789]\d{9}$/, message: '请输入正确的手机号码' }
-          ],
-          idCard: [
-            { required: true, message: '请输入身份证号', trigger: 'blur' },
-            { pattern: /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/, message: '请输入正确的身份证号' }
+          nowStatus: [
+            { required: true, message: '请选择当前状态', trigger: 'change' },
           ]
         },
 
@@ -230,7 +215,9 @@
     // 一进来页面就调用
     mounted() {
       // 获取表格数据
-      this.getTableData();
+      this.getTableData()
+      // 获取房间类型选项
+      this.getDeviceOptions()
     },
     methods: {
       // 获取表格数据
@@ -238,7 +225,7 @@
         // 打开loading动画
         this.tableLoading = true
         // 调用后台api，进行交互
-        const res = await Hotel_api.gerRoom()
+        const res = await Hotel_api.getRoom({ hotelId: 1 })
         if (res.data.code === 0) {
           this.tableData = res.data.data
         } else {
@@ -252,7 +239,13 @@
         // 打开弹窗
         this.showDialog = true
         // 把这一行的数据给到表单
-        this.form = data
+        this.form = {
+          hotel_id: 1,
+          room: data.room,
+          type: data.type,
+          status: data.status,
+          nowStatus: data.nowStatus
+        }
       },
       // 点击弹窗里的确认按钮
       formSubmit() {
@@ -296,11 +289,21 @@
       },
       // 点击某一行里的查看详情
       handleDetail(data) {
-        console.log(data)
+        // console.log(data)
         this.detail = data;
         // 打开弹窗
         this.showDetail = true;
-      }
+      },
+      // 获取房间类型选项
+      async getDeviceOptions() {
+        // 调用后台api，进行交互
+        const res = await Hotel_api.getDevice()
+        if (res.data.code === 0) {
+          this.options = res.data.data
+        } else {
+          this.$message.warning(res.data.data)
+        }
+      },
     }
   }
 </script>

@@ -29,8 +29,8 @@ export default class decive {
     return request.put(`${this.cfg.Base_url}/room/add`, params)
   }
   // 获取所有客房
-  getRoom(params) {
-    return request.get(`${this.cfg.Base_url}/room/get`, {hotelId: 1})
+  getRoom(data) {
+    return request.get(`${this.cfg.Base_url}/room/get/${data.hotelId}`)
   }
 
 }
