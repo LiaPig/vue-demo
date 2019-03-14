@@ -27,6 +27,15 @@ import adminDeviceAdd from '@/pages/admin/device/add'
 import adminRoom from '@/pages/admin/room'
 // 新增客房信息
 import adminRoomAdd from '@/pages/admin/room/add'
+// 员工的页面
+// 客房信息管理
+import staffRoom from '@/pages/staff/room'
+// 入住房间管理
+import staffCheckIn from '@/pages/staff/checkIn'
+// 退还房间管理
+import staffCheckOut from '@/pages/staff/checkOut'
+// 账单信息管理
+import staffBill from '@/pages/staff/bill'
 
 
 Vue.use(Router)
@@ -69,6 +78,7 @@ const routes = [
           requiresAuth: true
         }
       },
+
       // 管理员的页面
       // 员工信息管理
       {
@@ -134,6 +144,45 @@ const routes = [
         }
       },
 
+      // 员工的页面
+      // 客房信息管理
+      {
+        path: '/staff/room',
+        component: staffRoom,
+        // 需要权限验证，路由拦截
+        meta: {
+          requiresAuth: true
+        }
+      },
+      // 入住房间管理
+      {
+        path: '/staff/checkIn',
+        component: staffCheckIn,
+        // 需要权限验证，路由拦截
+        meta: {
+          requiresAuth: true
+        }
+      },
+      // 退还房间管理
+      {
+        path: '/staff/checkOut',
+        component: staffCheckOut,
+        // 需要权限验证，路由拦截
+        meta: {
+          requiresAuth: true
+        }
+      },
+      // 账单信息管理
+      {
+        path: '/staff/bill',
+        component: staffBill,
+        // 需要权限验证，路由拦截
+        meta: {
+          requiresAuth: true
+        }
+      },
+
+      // 客户的页面
     ]
   }
 ]

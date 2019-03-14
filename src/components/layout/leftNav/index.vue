@@ -102,7 +102,56 @@
           },
         ],
         // 员工菜单
-        staffMenu: [],
+        staffMenu: [
+          // 客房信息管理
+          {
+            path: '/staff/room',
+            title: '客房信息管理',
+            icon: 'el-icon-setting',
+            children: [
+              {
+                path: '/staff/room',
+                title: '查询所有客房',
+              }
+            ]
+          },
+          // 入住房间管理
+          {
+            path: '/staff/checkIn',
+            title: '入住房间管理',
+            icon: 'el-icon-setting',
+            children: [
+              {
+                path: '/staff/checkIn',
+                title: '入住房间管理',
+              }
+            ]
+          },
+          // 退还房间管理
+          {
+            path: '/staff/checkOut',
+            title: '退还房间管理',
+            icon: 'el-icon-setting',
+            children: [
+              {
+                path: '/staff/checkOut',
+                title: '退还房间管理',
+              }
+            ]
+          },
+          // 账单信息管理
+          {
+            path: '/staff/bill',
+            title: '账单信息管理',
+            icon: 'el-icon-setting',
+            children: [
+              {
+                path: '/staff/bill',
+                title: '账单信息管理',
+              }
+            ]
+          },
+        ],
         // 客户菜单
         customerMenu: [],
         // 显示的菜单
