@@ -8,7 +8,7 @@
       <div class="title">注册--酒店客房管理信息系统</div>
       <!--表单-->
       <div class="form-content">
-        <el-form :model="registerForm" ref="registerForm" :rules="rules" label-width="100px">
+        <el-form :model="registerForm" ref="registerForm" :rules="rules" label-width="120px">
           <!--登录账号-->
           <el-form-item prop="loginName" label="登录账号：" class="whiteLabel">
             <el-input v-model="registerForm.loginName" placeholder="请输入登录账号"></el-input>
@@ -40,6 +40,24 @@
           <el-form-item prop="idCard" label="身份证号：" class="whiteLabel">
             <el-input v-model="registerForm.idCard" placeholder="请输入身份证号"></el-input>
           </el-form-item>
+          <!--民族-->
+          <el-form-item prop="nation" label="民族：" class="whiteLabel">
+            <el-input v-model="registerForm.nation" placeholder="请输入民族"></el-input>
+          </el-form-item>
+          <!--出生日期-->
+          <el-form-item prop="birth" label="出生日期：" class="whiteLabel">
+            <el-date-picker
+              v-model="registerForm.birth"
+              type="date"
+              placeholder="选择出生日期"
+              style="width: 100%">
+            </el-date-picker>
+          </el-form-item>
+          <!--身份证住址-->
+          <el-form-item prop="address" label="身份证住址：" class="whiteLabel">
+            <el-input v-model="registerForm.address" placeholder="请输入身份证住址"></el-input>
+          </el-form-item>
+          <!--按钮-->
           <el-button type="primary" plain @click="handleSubmit" style="width: 100px;margin-top: 10px">注册</el-button>
           <el-button @click="handleLogin" style="width: 100px;margin-top: 10px">去登录</el-button>
         </el-form>
@@ -74,7 +92,10 @@
           userName: null,
           phone: null,
           sex: null,
-          idCard: null
+          idCard: null,
+          nation: null,
+          birth: null,
+          address: null
         },
         // 表单验证
         rules: {
@@ -101,7 +122,16 @@
           idCard: [
             { required: true, message: '请输入身份证号', trigger: 'blur' },
             { pattern: /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/, message: '请输入正确的身份证号' }
-          ]
+          ],
+          nation: [
+            { required: true, message: '请输入民族', trigger: 'blur' }
+          ],
+          birth: [
+            { required: true, message: '请选择出生日期', trigger: 'change' }
+          ],
+          address: [
+            { required: true, message: '请输入身份证住址', trigger: 'blur' }
+          ],
         },
       }
     },
@@ -115,23 +145,17 @@
           if (valid) {
             // 发起异步请求
             // console.log(this.registerForm)
-            const res = await User_api.addCustomer(this.registerForm)
+            const data = this.registerForm
+            data.birth = this.baseJs.formatDate.format(data.birth, 'yyyy-MM-dd')
+            const res = await User_api.addCustomer(data)
             // 登录成功
             if(res.data.code === 0) {
               this.$notify({
-                title: '恭喜你',
-                message: '注册成功!',
+                title: '注册成功！',
+                message: '已前往登录',
                 type: 'success'
               });
-              // 将token、用户名 存到全局去
-              // const data = {
-              //   token: res.data.data[0],
-              //   userName: res.data.data[1].userName,
-              //   role: this.registerForm.role
-              // }
-              // this.$store.commit('SET_USERINFO', data);
-              // Cookies.set('userInfo', data)
-              // this.$router.push({path: '/home'});
+              this.$router.push({path: '/login'});
             }
             else {
               this.$message({
@@ -166,7 +190,7 @@
     left: 50%;
     top: 50%;
     width: 800px;
-    height: 600px;
+    height: 800px;
     transform: translate(-50%, -50%);
     background-color: rgba(24, 24, 24, .8);
     border-radius: 50px;
