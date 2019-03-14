@@ -14,7 +14,7 @@
           <span slot="title">&nbsp;&nbsp;&nbsp;&nbsp;首页&nbsp;&nbsp;&nbsp;&nbsp;</span>
         </el-menu-item>
         <!--遍历渲染其他路由-->
-        <template v-for="item in adminMenu">
+        <template v-for="item in menuList">
           <el-submenu :index="item.path">
             <template slot="title">
               <i :class="item.icon"></i>
@@ -32,11 +32,13 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
+
   export default {
     name: "index",
     data() {
       return {
-        //
+        // 管理员菜单
         adminMenu: [
           // 员工信息管理
           {
@@ -83,10 +85,47 @@
             ]
           },
           // 客房信息管理
-        ]
+          {
+            path: '/admin/room',
+            title: '客房信息管理',
+            icon: 'el-icon-setting',
+            children: [
+              {
+                path: '/admin/room',
+                title: '房间类型管理',
+              },
+              {
+                path: '/admin/room/add',
+                title: '新增客房信息',
+              }
+            ]
+          },
+        ],
+        // 员工菜单
+        staffMenu: [],
+        // 客户菜单
+        customerMenu: [],
+        // 显示的菜单
+        menuList: []
       }
     },
-    methods: {
+    computed: {
+      ...mapGetters([
+        // 角色
+        'role'
+      ]),
+    },
+    // 进入这个页面就调用的函数
+    mounted() {
+      // 会根据角色来判断实际上显示哪一个菜单
+      // driver驾驶员，admin管理员，approver审批员
+      if (this.role === 'staff') {
+        this.menuList = this.staffMenu
+      } else if (this.role === 'admin') {
+        this.menuList = this.adminMenu
+      } else if (this.role === 'customer') {
+        this.menuList = this.customerMenu
+      }
     }
   }
 </script>
