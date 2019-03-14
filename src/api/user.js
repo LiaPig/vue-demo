@@ -8,6 +8,7 @@ export default class user {
 
   // 登录
   login(data) {
+    // `${this.cfg.Base_url}/login` 相当于 this.cfg.Base_url + '/login'
     return request.post(`${this.cfg.Base_url}/login`, data)
   }
 
@@ -26,11 +27,18 @@ export default class user {
     return request.delete(`${this.cfg.Base_url}/staff/delete/${data.id}`)
   }
 
-  // // 注册驾驶员
-  // register(data) {
-  //   return request.post(`${this.cfg.Base_url}/register`, data)
-  // }
-  //
+  // 获取所有客户
+  getCustomer(params) {
+    return request.get(`${this.cfg.Base_url}/customer/get`, params)
+  }
+
+  // 客户注册
+  addCustomer(data) {
+    return request.put(`${this.cfg.Base_url}/customer/add`, data)
+  }
+
+
+
   // // 获取个人信息（管理员、审批员、驾驶员）
   // getInformation(params) {
   //   return request.get(`${this.cfg.Base_url}/get`, params)

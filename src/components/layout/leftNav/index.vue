@@ -14,45 +14,28 @@
           <span slot="title">&nbsp;&nbsp;&nbsp;&nbsp;首页&nbsp;&nbsp;&nbsp;&nbsp;</span>
         </el-menu-item>
         <!--员工信息管理，index属性填路由地址-->
-        <el-submenu index="/staff">
+        <el-submenu index="/admin/staff">
           <template slot="title">
             <i class="el-icon-setting"></i>
             <span>员工信息管理</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item index="/staff">员工信息管理</el-menu-item>
+            <el-menu-item index="/admin/staff">员工信息管理</el-menu-item>
           </el-menu-item-group>
           <el-menu-item-group>
-            <el-menu-item index="/staff/add">新增员工信息</el-menu-item>
+            <el-menu-item index="/admin/staff/add">新增员工信息</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
-        <!--宠物管理，index属性填路由地址-->
-        <!--
-        <el-submenu index="/pet">
+        <!--客户信息管理，index属性填路由地址-->
+        <el-submenu index="/admin/customer">
           <template slot="title">
-            <i class="el-icon-location"></i>
-            <span>宠物管理</span>
+            <i class="el-icon-setting"></i>
+            <span>客户信息管理</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item index="/pet">宠物管理</el-menu-item>
-          </el-menu-item-group>
-          <el-menu-item-group>
-            <el-menu-item index="/pet/add">新增宠物</el-menu-item>
+            <el-menu-item index="/admin/customer">客户信息管理</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
-        -->
-        <!--订单管理，index属性填路由地址-->
-        <!--
-        <el-submenu index="/order">
-          <template slot="title">
-            <i class="el-icon-location"></i>
-            <span>订单管理</span>
-          </template>
-          <el-menu-item-group>
-            <el-menu-item index="/order">订单管理</el-menu-item>
-          </el-menu-item-group>
-        </el-submenu>
-        -->
       </el-menu>
     </div>
 </template>

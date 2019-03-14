@@ -237,6 +237,7 @@
         async getTableData() {
           // 打开loading动画
           this.tableLoading = true
+          // 调用后台api，进行交互
           const res = await User_api.getStaff()
           if (res.data.code === 0) {
             this.tableData = res.data.data

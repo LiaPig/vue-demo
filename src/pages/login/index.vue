@@ -5,7 +5,7 @@
       <!--内容-->
       <div class="login-content">
         <!--标题-->
-        <div class="title">登录酒店客房管理信息系统</div>
+        <div class="title">登录--酒店客房管理信息系统</div>
         <!--表单-->
         <div class="form-content">
           <el-form :model="loginForm" ref="loginForm" :rules="rules" label-width="80px">
@@ -22,7 +22,7 @@
               <el-select v-model="loginForm.role" placeholder="请选择权限角色" style="width: 100%">
                 <el-option label="管理员" value="admin"></el-option>
                 <el-option label="员工" value="staff"></el-option>
-                <el-option label="客户" value="user"></el-option>
+                <el-option label="客户" value="customer"></el-option>
               </el-select>
             </el-form-item>
             <el-button type="primary" plain @click="handleSubmit" style="width: 100px;margin-top: 30px">登录</el-button>

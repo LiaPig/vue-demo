@@ -17,6 +17,8 @@ import home from '@/pages/home'
 import adminStaff from '@/pages/admin/staff'
 // 新增员工信息
 import adminStaffAdd from '@/pages/admin/staff/add'
+// 客户信息管理
+import customerStaff from '@/pages/admin/customer'
 
 
 Vue.use(Router)
@@ -62,7 +64,7 @@ const routes = [
       // 管理员的页面
       // 员工信息管理
       {
-        path: '/staff',
+        path: '/admin/staff',
         component: adminStaff,
         // 需要权限验证，路由拦截
         meta: {
@@ -71,13 +73,24 @@ const routes = [
       },
       // 新增员工信息
       {
-        path: '/staff/add',
+        path: '/admin/staff/add',
         component: adminStaffAdd,
         // 需要权限验证，路由拦截
         meta: {
           requiresAuth: true
         }
       },
+      // 客户信息管理
+      {
+        path: '/admin/customer',
+        component: customerStaff,
+        // 需要权限验证，路由拦截
+        meta: {
+          requiresAuth: true
+        }
+      },
+
+
     ]
   }
 ]
