@@ -18,7 +18,11 @@ import adminStaff from '@/pages/admin/staff'
 // 新增员工信息
 import adminStaffAdd from '@/pages/admin/staff/add'
 // 客户信息管理
-import customerStaff from '@/pages/admin/customer'
+import adminCustomer from '@/pages/admin/customer'
+// 房间类型管理
+import adminDevice from '@/pages/admin/device'
+// 新增房间类型
+import adminDeviceAdd from '@/pages/admin/device/add'
 
 
 Vue.use(Router)
@@ -83,7 +87,25 @@ const routes = [
       // 客户信息管理
       {
         path: '/admin/customer',
-        component: customerStaff,
+        component: adminCustomer,
+        // 需要权限验证，路由拦截
+        meta: {
+          requiresAuth: true
+        }
+      },
+      // 房间类型管理
+      {
+        path: '/admin/device',
+        component: adminDevice,
+        // 需要权限验证，路由拦截
+        meta: {
+          requiresAuth: true
+        }
+      },
+      // 新增房间类型
+      {
+        path: '/admin/device/add',
+        component: adminDeviceAdd,
         // 需要权限验证，路由拦截
         meta: {
           requiresAuth: true
