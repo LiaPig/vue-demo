@@ -11,6 +11,21 @@ export default class user {
     return request.post(`${this.cfg.Base_url}/login`, data)
   }
 
+  // 获取所有员工
+  getStaff(params) {
+    return request.get(`${this.cfg.Base_url}/staff/get`, params)
+  }
+
+  // 管理员新增员工
+  addStaff(data) {
+    return request.put(`${this.cfg.Base_url}/staff/add`, data)
+  }
+
+  // 管理员删除员工
+  deleteStaff(data) {
+    return request.delete(`${this.cfg.Base_url}/staff/delete/${data.id}`)
+  }
+
   // // 注册驾驶员
   // register(data) {
   //   return request.post(`${this.cfg.Base_url}/register`, data)
@@ -31,23 +46,12 @@ export default class user {
   //     return request.get(`${this.cfg.Base_url}/driver/get`, params)
   // }
   //
-  // // 获取审批员
-  // getApprover(params) {
-  //   return request.get(`${this.cfg.Base_url}/approver/get`, params)
-  // }
-  //
-  // // 管理员新增审批员
-  // addApprover(data) {
-  //   return request.post(`${this.cfg.Base_url}/addApprover`, data)
-  // }
-  //
+
+
   // // 管理员修改审批员/审批员修改驾驶员信息
   // updateUser(data) {
   //   return request.post(`${this.cfg.Base_url}/updateByOther`, data)
   // }
   //
-  // // 管理员删除审批员/审批员删除驾驶员信息
-  // deleteUser(data) {
-  //   return request.post(`${this.cfg.Base_url}/delete`, data)
-  // }
+
 }

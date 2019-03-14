@@ -22,6 +22,9 @@
           <el-menu-item-group>
             <el-menu-item index="/staff">员工信息管理</el-menu-item>
           </el-menu-item-group>
+          <el-menu-item-group>
+            <el-menu-item index="/staff/add">新增员工信息</el-menu-item>
+          </el-menu-item-group>
         </el-submenu>
         <!--宠物管理，index属性填路由地址-->
         <!--

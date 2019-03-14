@@ -41,7 +41,9 @@
             <el-table-column
               sortable
               label="创建时间">
-              {{ baseJs.formatDate.format(new Date(tableData.createTime), 'yyyy-MM-dd hh:mm:ss') }}
+              <template slot-scope="scope">
+                {{ baseJs.formatDate.format(new Date(scope.row.createTime), 'yyyy-MM-dd hh:mm:ss') }}
+              </template>
             </el-table-column>
             <el-table-column
               label="操作">
@@ -129,10 +131,29 @@
             <span class="text">{{ detail.id }}</span>
           </div>
           <div class="row">
-            <span class="label">员工ID：</span>
-            <span class="text">{{ detail.id }}</span>
+            <span class="label">登录账号：</span>
+            <span class="text">{{ detail.loginName }}</span>
           </div>
-
+          <div class="row">
+            <span class="label">真实姓名：</span>
+            <span class="text">{{ detail.userName }}</span>
+          </div>
+          <div class="row">
+            <span class="label">手机号码：</span>
+            <span class="text">{{ detail.phone }}</span>
+          </div>
+          <div class="row">
+            <span class="label">邮箱地址：</span>
+            <span class="text">{{ detail.email }}</span>
+          </div>
+          <div class="row">
+            <span class="label">角色权限：</span>
+            <span class="text">员工</span>
+          </div>
+          <div class="row">
+            <span class="label">创建时间：</span>
+            <span class="text">{{ baseJs.formatDate.format(new Date(detail.createTime), 'yyyy-MM-dd hh:mm:ss') }}</span>
+          </div>
         </div>
         <div slot="footer" class="dialog-footer">
           <el-button type="warning" @click="showDetail = false">确定</el-button>
@@ -190,7 +211,7 @@
 
 
           // 是否显示详情弹窗
-          showDetail: true,
+          showDetail: false,
           // 详情弹窗的数据
           detail: {
             "createTime": "2019-03-14T02:43:25.242Z",
@@ -209,19 +230,19 @@
       // 一进来页面就调用
       mounted() {
         // 获取表格数据
-        // this.getTableData();
+        this.getTableData();
       },
       methods: {
         // 获取表格数据
         async getTableData() {
           // 打开loading动画
           this.tableLoading = true
-          // const res = await User_api.getApprover()
-          // if (res.data.code === 0) {
-          //   this.tableData = res.data.data
-          // } else {
-          //   this.$message.warning(res.data.data)
-          // }
+          const res = await User_api.getStaff()
+          if (res.data.code === 0) {
+            this.tableData = res.data.data
+          } else {
+            this.$message.warning(res.data.data)
+          }
           // 关闭loading动画
           this.tableLoading = false;
         },
@@ -250,7 +271,7 @@
         },
         // 点击某一行里的删除按钮
         handleDelete(data) {
-          this.$confirm('此操作将删除该审批员, 是否继续?', '提示', {
+          this.$confirm('此操作将删除该员工, 是否继续?', '提示', {
             confirmButtonText: '确定',
             cancelButtonText: '取消',
             type: 'warning'
@@ -258,7 +279,7 @@
             const params = {
               id: data.id
             }
-            const res = await User_api.deleteUser(params)
+            const res = await User_api.deleteStaff(params)
             if (res.data.code === 0) {
               this.$message.success('删除成功')
               this.getTableData();
@@ -274,6 +295,7 @@
         },
         // 点击某一行里的查看详情
         handleDetail(data) {
+          console.log(data)
           this.detail = data;
           // 打开弹窗
           this.showDetail = true;

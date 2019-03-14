@@ -15,6 +15,8 @@ import home from '@/pages/home'
 // 管理员的页面
 // 员工信息管理
 import adminStaff from '@/pages/admin/staff'
+// 新增员工信息
+import adminStaffAdd from '@/pages/admin/staff/add'
 
 
 Vue.use(Router)
@@ -67,6 +69,15 @@ const routes = [
           requiresAuth: true
         }
       },
+      // 新增员工信息
+      {
+        path: '/staff/add',
+        component: adminStaffAdd,
+        // 需要权限验证，路由拦截
+        meta: {
+          requiresAuth: true
+        }
+      },
     ]
   }
 ]
@@ -85,7 +96,7 @@ const router = new Router({
 // 路由拦截
 router.beforeEach((to, from, next) => {
   if (to.matched.some(r => r.meta.requiresAuth)) {  // 判断该路由是否需要登录权限
-    console.log(store.getters);
+    // console.log(store.getters);
     if (store.getters.token) {  // 通过vuex 如果当前有登录
       next();
     }

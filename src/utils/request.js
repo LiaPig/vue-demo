@@ -2,8 +2,8 @@
 import axios from 'axios'
 // 饿了么的提示框UI
 import { Message } from 'element-ui'
-// 引入js-cookie
-import Cookies from 'js-cookie'
+// 引入封装好的vuex,拿token会用到
+import store from '@/store'
 // 引入路由，没权限的时候需要跳转路由到登录页
 import router from 'vue-router'
 
@@ -20,10 +20,10 @@ const service = axios.create({
 service.interceptors.request.use(
   config => {
     // Do something before request is sent
-    // 发请求的时候，如果cookie里有token，带上在请求头的Authorization属性里
-    if (Cookies.get('token')) {
+    // 发请求的时候，如果store里有token，带上在请求头的Authorization属性里
+    if (store.getters.token) {
       // 让每个请求携带token-- ['X-Token']为自定义key 请根据实际情况自行修改
-      config.headers.Authorization = Cookies.get('token')
+      config.headers.Authorization = store.getters.token
     }
     return config
   },
