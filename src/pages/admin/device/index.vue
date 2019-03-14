@@ -153,28 +153,56 @@
     <el-dialog title="查看房间类型详情" :visible.sync="showDetail">
       <div class="dialogDetail">
         <div class="row">
-          <span class="label">员工ID：</span>
+          <span class="label">房间类型ID：</span>
           <span class="text">{{ detail.id }}</span>
         </div>
         <div class="row">
-          <span class="label">登录账号：</span>
-          <span class="text">{{ detail.loginName }}</span>
+          <span class="label">房间类型名字：</span>
+          <span class="text">{{ detail.name }}</span>
         </div>
         <div class="row">
-          <span class="label">真实姓名：</span>
-          <span class="text">{{ detail.userName }}</span>
+          <span class="label">床型：</span>
+          <span class="text">{{ detail.bedType }}</span>
         </div>
         <div class="row">
-          <span class="label">手机号码：</span>
-          <span class="text">{{ detail.phone }}</span>
+          <span class="label">卫浴类型：</span>
+          <span class="text">{{ detail.bathroom }}</span>
         </div>
         <div class="row">
-          <span class="label">邮箱地址：</span>
-          <span class="text">{{ detail.email }}</span>
+          <span class="label">容纳人数：</span>
+          <span class="text">{{ detail.contain }}</span>
         </div>
         <div class="row">
-          <span class="label">角色权限：</span>
-          <span class="text">房间类型</span>
+          <span class="label">有无窗户：</span>
+          <span class="text">
+            <template v-if="detail.casement === '1'">有</template>
+            <template v-else-if="detail.casement === '0'">无</template>
+          </span>
+        </div>
+        <div class="row">
+          <span class="label">有无wifi：</span>
+          <span class="text">
+            <template v-if="detail.wifi === '1'">有</template>
+            <template v-else-if="detail.wifi === '0'">无</template>
+          </span>
+        </div>
+        <template v-if="detail.wifi === '1'">
+          <div class="row">
+            <span class="label">wifi名：</span>
+            <span class="text">{{ detail.wifiName }}</span>
+          </div>
+          <div class="row">
+            <span class="label">wifi密码：</span>
+            <span class="text">{{ detail.wifiPassword }}</span>
+          </div>
+        </template>
+        <div class="row">
+          <span class="label">房间面积：</span>
+          <span class="text">{{ detail.size }}</span>
+        </div>
+        <div class="row">
+          <span class="label">房间价格：</span>
+          <span class="text">{{ detail.price }}</span>
         </div>
         <div class="row">
           <span class="label">创建时间：</span>
