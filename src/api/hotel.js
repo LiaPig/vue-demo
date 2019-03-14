@@ -24,6 +24,13 @@ export default class decive {
     return request.delete(`${this.cfg.Base_url}/device/delete/${data.id}`)
   }
 
-
+  // 添加客房
+  addRoom(params) {
+    return request.put(`${this.cfg.Base_url}/room/add`, params)
+  }
+  // 获取所有客房
+  getRoom(params) {
+    return request.get(`${this.cfg.Base_url}/room/get`, {hotelId: 1})
+  }
 
 }

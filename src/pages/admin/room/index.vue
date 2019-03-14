@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--标题行-->
-    <div class="my-title">客户信息管理</div>
+    <div class="my-title">客房信息管理</div>
     <!--员工信息管理表格-->
     <el-row class="aaa_table" v-loading="tableLoading" element-loading-text="拼命加载中">
       <template style="">
@@ -16,12 +16,12 @@
           <el-table-column
             sortable
             prop="id"
-            label="客户ID">
+            label="员工ID">
           </el-table-column>
           <el-table-column
             sortable
             prop="loginName"
-            label="登录账号">
+            label="用户名">
           </el-table-column>
           <el-table-column
             sortable
@@ -35,32 +35,12 @@
           </el-table-column>
           <el-table-column
             sortable
-            prop="sex"
-            label="性别">
+            prop="email"
+            label="邮箱地址">
           </el-table-column>
           <el-table-column
             sortable
-            prop="birth"
-            label="出生日期">
-          </el-table-column>
-          <el-table-column
-            sortable
-            prop="nation"
-            label="民族">
-          </el-table-column>
-          <el-table-column
-            sortable
-            prop="idCard"
-            label="身份证号">
-          </el-table-column>
-          <el-table-column
-            sortable
-            prop="address"
-            label="身份证住址">
-          </el-table-column>
-          <el-table-column
-            sortable
-            label="注册时间">
+            label="创建时间">
             <template slot-scope="scope">
               {{ baseJs.formatDate.format(new Date(scope.row.createTime), 'yyyy-MM-dd hh:mm:ss') }}
             </template>
@@ -78,7 +58,7 @@
     </el-row>
 
     <!--编辑弹出框-->
-    <el-dialog title="编辑客户信息" :visible.sync="showDialog" width="65%">
+    <el-dialog title="编辑员工信息" :visible.sync="showDialog" width="65%">
       <el-form :model="form" ref="form" label-width="100px" :rules="formRules">
         <!--用户名-->
         <el-row>
@@ -144,7 +124,7 @@
       </div>
     </el-dialog>
     <!--详情弹窗-->
-    <el-dialog title="查看客户信息详情" :visible.sync="showDetail">
+    <el-dialog title="查看员工详情" :visible.sync="showDetail">
       <div class="dialogDetail">
         <div class="row">
           <span class="label">员工ID：</span>
@@ -163,31 +143,15 @@
           <span class="text">{{ detail.phone }}</span>
         </div>
         <div class="row">
-          <span class="label">性别：</span>
-          <span class="text">{{ detail.sex }}</span>
+          <span class="label">邮箱地址：</span>
+          <span class="text">{{ detail.email }}</span>
         </div>
         <div class="row">
           <span class="label">角色权限：</span>
-          <span class="text">客户</span>
+          <span class="text">员工</span>
         </div>
         <div class="row">
-          <span class="label">出生日期：</span>
-          <span class="text">{{ detail.birth }}</span>
-        </div>
-        <div class="row">
-          <span class="label">民族：</span>
-          <span class="text">{{ detail.nation }}</span>
-        </div>
-        <div class="row">
-          <span class="label">身份证号：</span>
-          <span class="text">{{ detail.idCard }}</span>
-        </div>
-        <div class="row">
-          <span class="label">身份证住址：</span>
-          <span class="text">{{ detail.address }}</span>
-        </div>
-        <div class="row">
-          <span class="label">注册时间：</span>
+          <span class="label">创建时间：</span>
           <span class="text">{{ baseJs.formatDate.format(new Date(detail.createTime), 'yyyy-MM-dd hh:mm:ss') }}</span>
         </div>
       </div>
@@ -199,7 +163,7 @@
 </template>
 
 <script>
-  import { User_api } from "../../../api";
+  import { Hotel_api } from "../../../api";
 
   export default {
     name: "index",
@@ -249,7 +213,18 @@
         // 是否显示详情弹窗
         showDetail: false,
         // 详情弹窗的数据
-        detail: {},
+        detail: {
+          "createTime": "2019-03-14T02:43:25.242Z",
+          "email": "string",
+          "hotelId": 0,
+          "id": 0,
+          "loginName": "string",
+          "password": "string",
+          "phone": "string",
+          "role": "string",
+          "upTime": "2019-03-14T02:43:25.242Z",
+          "userName": "string"
+        },
       }
     },
     // 一进来页面就调用
@@ -263,7 +238,7 @@
         // 打开loading动画
         this.tableLoading = true
         // 调用后台api，进行交互
-        const res = await User_api.getCustomer()
+        const res = await Hotel_api.gerRoom()
         if (res.data.code === 0) {
           this.tableData = res.data.data
         } else {
@@ -321,7 +296,7 @@
       },
       // 点击某一行里的查看详情
       handleDetail(data) {
-        // console.log(data)
+        console.log(data)
         this.detail = data;
         // 打开弹窗
         this.showDetail = true;

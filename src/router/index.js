@@ -23,6 +23,10 @@ import adminCustomer from '@/pages/admin/customer'
 import adminDevice from '@/pages/admin/device'
 // 新增房间类型
 import adminDeviceAdd from '@/pages/admin/device/add'
+// 客房信息管理
+import adminRoom from '@/pages/admin/room'
+// 新增客房信息
+import adminRoomAdd from '@/pages/admin/room/add'
 
 
 Vue.use(Router)
@@ -111,7 +115,24 @@ const routes = [
           requiresAuth: true
         }
       },
-
+      // 客房信息管理
+      {
+        path: '/admin/room',
+        component: adminRoom,
+        // 需要权限验证，路由拦截
+        meta: {
+          requiresAuth: true
+        }
+      },
+      // 新增客房信息
+      {
+        path: '/admin/room/add',
+        component: adminRoomAdd,
+        // 需要权限验证，路由拦截
+        meta: {
+          requiresAuth: true
+        }
+      },
 
     ]
   }
