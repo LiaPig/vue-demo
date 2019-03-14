@@ -2,7 +2,7 @@
   <div>
     <!--标题行-->
     <div class="my-title">房间类型管理</div>
-    <!--员工信息管理表格-->
+    <!--房间类型管理表格-->
     <el-row class="aaa_table" v-loading="tableLoading" element-loading-text="拼命加载中">
       <template style="">
         <el-table
@@ -16,27 +16,53 @@
           <el-table-column
             sortable
             prop="id"
-            label="员工ID">
+            label="房间类型ID">
           </el-table-column>
           <el-table-column
             sortable
-            prop="loginName"
-            label="用户名">
+            prop="name"
+            label="房间类型名字">
           </el-table-column>
           <el-table-column
             sortable
-            prop="userName"
-            label="真实姓名">
+            prop="bedType"
+            label="床型">
           </el-table-column>
           <el-table-column
             sortable
-            prop="phone"
-            label="手机号码">
+            prop="bathroom"
+            label="卫浴类型">
           </el-table-column>
           <el-table-column
             sortable
-            prop="email"
-            label="邮箱地址">
+            prop="contain"
+            label="容纳人数">
+          </el-table-column>
+          <el-table-column
+            sortable
+            label="有无窗户">
+            <template slot-scope="scope">
+              <template v-if="scope.row.casement === '1'">有</template>
+              <template v-else-if="scope.row.casement === '0'">无</template>
+            </template>
+          </el-table-column>
+          <el-table-column
+            sortable
+            label="有无wifi">
+            <template slot-scope="scope">
+              <template v-if="scope.row.wifi === '1'">有</template>
+              <template v-else-if="scope.row.wifi === '0'">无</template>
+            </template>
+          </el-table-column>
+          <el-table-column
+            sortable
+            prop="size"
+            label="房间面积(平方米)">
+          </el-table-column>
+          <el-table-column
+            sortable
+            prop="price"
+            label="房间价格">
           </el-table-column>
           <el-table-column
             sortable
@@ -238,12 +264,12 @@
         // 打开loading动画
         this.tableLoading = true
         // 调用后台api，进行交互
-        // const res = await Hotel_api.getStaff()
-        // if (res.data.code === 0) {
-        //   this.tableData = res.data.data
-        // } else {
-        //   this.$message.warning(res.data.data)
-        // }
+        const res = await Hotel_api.getDevice()
+        if (res.data.code === 0) {
+          this.tableData = res.data.data
+        } else {
+          this.$message.warning(res.data.data)
+        }
         // 关闭loading动画
         this.tableLoading = false;
       },
