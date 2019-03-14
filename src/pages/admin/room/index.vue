@@ -251,7 +251,7 @@
       formSubmit() {
         this.$refs["form"].validate(async(valid) => {
           if (valid) {
-            const res = await User_api.updateUser(this.form)
+            const res = await Hotel_api.updateRoom(this.form)
             if(res.data.code === 0) {
               this.$message.success("修改成功！")
               this.getTableData()
@@ -265,7 +265,7 @@
       },
       // 点击某一行里的删除按钮
       handleDelete(data) {
-        this.$confirm('此操作将删除该员工, 是否继续?', '提示', {
+        this.$confirm('此操作将删除该客房, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
@@ -273,9 +273,9 @@
           const params = {
             id: data.id
           }
-          const res = await User_api.deleteStaff(params)
+          const res = await Hotel_api.deleteRoom(params)
           if (res.data.code === 0) {
-            this.$message.success('删除成功')
+            this.$message.success('删除成功！')
             this.getTableData();
           } else {
             this.$message.warning(res.data.data)

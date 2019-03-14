@@ -32,5 +32,13 @@ export default class decive {
   getRoom(data) {
     return request.get(`${this.cfg.Base_url}/room/get/${data.hotelId}`)
   }
+  // 更新客房信息
+  updateRoom(data) {
+    return request.post(`${this.cfg.Base_url}/room/update`, data)
+  }
+  // 删除客房
+  deleteRoom(data) {
+    return request.delete(`${this.cfg.Base_url}/room/delete/${data.id}`)
+  }
 
 }
