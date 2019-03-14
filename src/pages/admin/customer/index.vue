@@ -16,12 +16,12 @@
           <el-table-column
             sortable
             prop="id"
-            label="员工ID">
+            label="客户ID">
           </el-table-column>
           <el-table-column
             sortable
             prop="loginName"
-            label="用户名">
+            label="登录账号">
           </el-table-column>
           <el-table-column
             sortable
@@ -35,12 +35,32 @@
           </el-table-column>
           <el-table-column
             sortable
-            prop="email"
-            label="邮箱地址">
+            prop="sex"
+            label="性别">
           </el-table-column>
           <el-table-column
             sortable
-            label="创建时间">
+            prop="birth"
+            label="出生日期">
+          </el-table-column>
+          <el-table-column
+            sortable
+            prop="nation"
+            label="民族">
+          </el-table-column>
+          <el-table-column
+            sortable
+            prop="idCard"
+            label="身份证号">
+          </el-table-column>
+          <el-table-column
+            sortable
+            prop="address"
+            label="身份证住址">
+          </el-table-column>
+          <el-table-column
+            sortable
+            label="注册时间">
             <template slot-scope="scope">
               {{ baseJs.formatDate.format(new Date(scope.row.createTime), 'yyyy-MM-dd hh:mm:ss') }}
             </template>
