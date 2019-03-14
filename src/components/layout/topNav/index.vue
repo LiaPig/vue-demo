@@ -2,7 +2,7 @@
     <div class="top">
       <el-dropdown class="item" @command="handleCommand">
         <span class="el-dropdown-link">
-          欢迎您，{{ username }}<i class="el-icon-arrow-down el-icon--right"></i>
+          欢迎您，{{ userName }}<i class="el-icon-arrow-down el-icon--right"></i>
         </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item command="exit">退出登录</el-dropdown-item>
@@ -12,24 +12,28 @@
 </template>
 
 <script>
-  // import {mapGetters} from 'vuex'
+  import {mapGetters} from 'vuex'
 
   export default {
     name: "index",
     data() {
       return {
-        username: '管理员'
       };
+    },
+    computed: {
+      ...mapGetters([
+        'userName'
+      ]),
     },
     methods: {
       handleCommand(command) {
         if(command === "exit") {
-          // this.$store.commit('REMOVE_USERINFO')
-          // this.$notify({
-          //   title: '退出登录成功',
-          //   message: '请重新登录',
-          //   type: 'success'
-          // });
+          this.$store.commit('REMOVE_USERINFO')
+          this.$notify({
+            title: '退出登录成功',
+            message: '请重新登录',
+            type: 'success'
+          });
           this.$router.push({path: '/login'});
         }
       }

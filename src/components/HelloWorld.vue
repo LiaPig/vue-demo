@@ -44,17 +44,18 @@
     width: calc(100% - 200px);
   }
   .content {
+    padding: 20px;
     position: absolute;
     left: 200px;
     top: 68px;
-    width: calc(100% - 200px);
-    height: calc(100% - 68px);
+    width: calc(100% - 200px - 40px);
+    height: calc(100% - 68px - 40px);
+    overflow-y: auto;
     background-color: #fff;
   }
   .my-title {
-    padding-left: 20px;
     display: inline-block;
-    width: calc(100% - 20px);
+    width: calc(100%);
     height: 30px;
     line-height: 30px;
     text-align: left;

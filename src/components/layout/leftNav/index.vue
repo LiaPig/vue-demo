@@ -13,18 +13,16 @@
           <i class="el-icon-menu"></i>
           <span slot="title">&nbsp;&nbsp;&nbsp;&nbsp;首页&nbsp;&nbsp;&nbsp;&nbsp;</span>
         </el-menu-item>
-        <!--用户管理，index属性填路由地址-->
-        <!--
-        <el-submenu index="/user">
+        <!--员工信息管理，index属性填路由地址-->
+        <el-submenu index="/staff">
           <template slot="title">
-            <i class="el-icon-location"></i>
-            <span>用户管理</span>
+            <i class="el-icon-setting"></i>
+            <span>员工信息管理</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item index="/user">用户管理</el-menu-item>
+            <el-menu-item index="/staff">员工信息管理</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
-        -->
         <!--宠物管理，index属性填路由地址-->
         <!--
         <el-submenu index="/pet">
@@ -69,6 +67,7 @@
     margin: 0;
     height: 68px;
     line-height: 68px;
+    font-size: 14px;
     color: #fff;
     background-color: rgb(84, 92, 100);
     border-bottom: solid 1px #e6e6e6;

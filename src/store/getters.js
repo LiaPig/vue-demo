@@ -1,6 +1,6 @@
 const getters = {
   token: state => state.user.token,
-  loginName: state => state.user.loginName,
+  userName: state => state.user.userName,
   role: state => state.user.role
 };
 

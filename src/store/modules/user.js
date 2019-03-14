@@ -10,7 +10,7 @@ const user = {
     // token,userInfo有就赋值，没就为''
     token: userInfo.token || '',
     // 用户名,userInfo有就赋值，没就为'unknown'
-    loginName: userInfo.user || 'unknown',
+    userName: userInfo.user || 'unknown',
     // 角色
     role: userInfo.role
   },
@@ -24,7 +24,7 @@ const user = {
     // 清空所有信息，包括cookie的
     REMOVE_USERINFO: state => {
       state.token = ''
-      state.loginName = ''
+      state.userName = ''
       state.role = ''
       Cookies.remove('userInfo')
     },

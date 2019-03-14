@@ -31,13 +31,6 @@
     color: #2c3e50;
     margin-top: 0;
   }
-  .el-dialog__header {
-    background-color: #707880;
-    border: 1px solid #ffffff;
-  }
-  .el-dialog__title {
-    color: #fff;
-  }
 
   .el-table th {
     background-color: #eef1f6;
@@ -81,15 +74,26 @@
     background-color: #ffffff;
   }
   .dialogDetail {
-    border: 1px solid #DCDFE6;
-    font-size: 15px;
+    font-size: 14px;
   }
-
-  .dialogDetail .title {
+  .dialogDetail .row {
+    margin: 10px 0;
+    display: inline-block;
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+  }
+  .dialogDetail .row  .label {
+    display: inline-block;
+    width: 300px;
     text-align: right;
   }
-  .dialogDetail .content {
-    text-align: left;
+  .dialogDetail .text {
+    margin-left: 5px;
+    display: inline-block;
+    width: 300px;
     color: #909399;
+    text-align: left;
   }
 </style>
