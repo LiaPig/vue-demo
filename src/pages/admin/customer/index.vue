@@ -78,7 +78,7 @@
     </el-row>
 
     <!--编辑弹出框-->
-    <el-dialog title="编辑员工信息" :visible.sync="showDialog" width="65%">
+    <el-dialog title="编辑客户信息" :visible.sync="showDialog" width="65%">
       <el-form :model="form" ref="form" label-width="100px" :rules="formRules">
         <!--用户名-->
         <el-row>
@@ -144,7 +144,7 @@
       </div>
     </el-dialog>
     <!--详情弹窗-->
-    <el-dialog title="查看员工详情" :visible.sync="showDetail">
+    <el-dialog title="查看客户信息详情" :visible.sync="showDetail">
       <div class="dialogDetail">
         <div class="row">
           <span class="label">员工ID：</span>
@@ -163,15 +163,31 @@
           <span class="text">{{ detail.phone }}</span>
         </div>
         <div class="row">
-          <span class="label">邮箱地址：</span>
-          <span class="text">{{ detail.email }}</span>
+          <span class="label">性别：</span>
+          <span class="text">{{ detail.sex }}</span>
         </div>
         <div class="row">
           <span class="label">角色权限：</span>
           <span class="text">客户</span>
         </div>
         <div class="row">
-          <span class="label">创建时间：</span>
+          <span class="label">出生日期：</span>
+          <span class="text">{{ detail.birth }}</span>
+        </div>
+        <div class="row">
+          <span class="label">民族：</span>
+          <span class="text">{{ detail.nation }}</span>
+        </div>
+        <div class="row">
+          <span class="label">身份证号：</span>
+          <span class="text">{{ detail.idCard }}</span>
+        </div>
+        <div class="row">
+          <span class="label">身份证住址：</span>
+          <span class="text">{{ detail.address }}</span>
+        </div>
+        <div class="row">
+          <span class="label">注册时间：</span>
           <span class="text">{{ baseJs.formatDate.format(new Date(detail.createTime), 'yyyy-MM-dd hh:mm:ss') }}</span>
         </div>
       </div>
@@ -316,7 +332,7 @@
       },
       // 点击某一行里的查看详情
       handleDetail(data) {
-        console.log(data)
+        // console.log(data)
         this.detail = data;
         // 打开弹窗
         this.showDetail = true;
