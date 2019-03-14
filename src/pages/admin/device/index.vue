@@ -85,61 +85,93 @@
 
     <!--编辑弹出框-->
     <el-dialog title="编辑房间类型信息" :visible.sync="showDialog" width="65%">
-      <el-form :model="form" ref="form" label-width="100px" :rules="formRules">
-        <!--用户名-->
+      <el-form :model="form" ref="form" label-width="120px" :rules="formRules">
+        <!--房间类型名字-->
         <el-row>
           <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
-            <el-form-item label="用户名：" prop="loginName">
-              <el-input v-model="form.loginName" placeholder="请输入用户名"></el-input>
+            <el-form-item label="房间类型名字：" prop="name">
+              <el-input v-model="form.name" style="width: 100%"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
-        <!--真实姓名-->
+        <!--床型-->
         <el-row>
           <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
-            <el-form-item label="真实姓名：" prop="realName">
-              <el-input v-model="form.realName" placeholder="请输入真实姓名"></el-input>
+            <el-form-item label="床型：" prop="bedType">
+              <el-input v-model="form.bedType" style="width: 100%"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
-        <!--密码-->
+        <!--卫浴类型-->
         <el-row>
           <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
-            <el-form-item label="密码：" prop="password">
-              <el-input v-model="form.password" type="password" placeholder="请输入密码"></el-input>
+            <el-form-item label="卫浴类型：" prop="bathroom">
+              <el-input v-model="form.bathroom" style="width: 100%"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
-        <!--性别-->
+        <!--容纳人数-->
         <el-row>
           <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
-            <el-form-item prop="sex" label="性别：">
-              <el-switch
-                v-model="form.sex"
-                active-color="#ff4949"
-                inactive-color="#13ce66"
-                active-text="女"
-                inactive-text="男"
-                active-value="女"
-                inactive-value="男"
-                style="float: left;margin-top: 10px;margin-left: 10px;">
-              </el-switch>
+            <el-form-item label="容纳人数：" prop="contain">
+              <el-input v-model="form.contain" type="number" style="width: 100%"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
-        <!--电话号码-->
+        <!--有无窗户-->
         <el-row>
           <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
-            <el-form-item label="电话号码：" prop="phone">
-              <el-input v-model="form.phone" placeholder="请输入电话号码"></el-input>
+            <el-form-item label="有无窗户：" prop="casement">
+              <el-select v-model="form.casement" placeholder="请选择有无窗户" style="width: 100%">
+                <el-option label="有" value="1"></el-option>
+                <el-option label="无" value="0"></el-option>
+              </el-select>
             </el-form-item>
           </el-col>
         </el-row>
-        <!--身份证号-->
+        <!--有无wifi-->
         <el-row>
           <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
-            <el-form-item label="身份证号：" prop="idCard">
-              <el-input v-model="form.idCard" placeholder="请输入身份证号"></el-input>
+            <el-form-item label="有无wifi：" prop="wifi">
+              <el-select v-model="form.wifi" placeholder="请选择有无wifi" style="width: 100%">
+                <el-option label="有" value="1"></el-option>
+                <el-option label="无" value="0"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <!--有wifi才显示-->
+        <template v-if="form.wifi === '1'">
+          <el-row>
+            <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
+              <el-form-item label="wifi名：" prop="wifiName">
+                <el-input v-model="form.wifiName" style="width: 100%"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
+              <el-form-item label="wifi密码：" prop="wifiPassword">
+                <el-input v-model="form.wifiPassword" style="width: 100%"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+
+        </template>
+        <!--房间面积-->
+        <el-row>
+          <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
+            <el-form-item label="房间面积：" prop="size">
+              <el-input v-model="form.size" type="number" style="width: 100%"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <!--房间价格-->
+        <el-row>
+          <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
+            <el-form-item label="房间价格：" prop="price">
+              <el-input v-model="form.price" type="number" style="width: 100%"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -241,25 +273,29 @@
         },
         // 表单验证
         formRules: {
-          loginName: [
-            { required: true, message: '请输入用户名', trigger: 'blur' }
+          name: [
+            { required: true, message: '请填写房间类型名字', trigger: 'blur' }
           ],
-          realName: [
-            { required: true, message: '请输入真实姓名', trigger: 'blur' }
+          bedType: [
+            { required: true, message: '请填写床型', trigger: 'blur' }
           ],
-          password: [
-            { required: true, message: '请输入密码', trigger: 'blur' }
+          bathroom: [
+            { required: true, message: '请填写卫浴类型', trigger: 'blur' }
           ],
-          sex: [
-            { required: true, message: '请选择性别', trigger: 'change' }
+          contain: [
+            { required: true, message: '请输入容纳人数', trigger: 'blur' },
           ],
-          phone: [
-            { required: true, message: '请输入手机号码', trigger: 'blur' },
-            { pattern: /^1[3456789]\d{9}$/, message: '请输入正确的手机号码' }
+          casement: [
+            { required: true, message: '请选择有无窗户', trigger: 'change' },
           ],
-          idCard: [
-            { required: true, message: '请输入身份证号', trigger: 'blur' },
-            { pattern: /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/, message: '请输入正确的身份证号' }
+          wifi: [
+            { required: true, message: '请选择有无wifi', trigger: 'change' },
+          ],
+          size: [
+            { required: true, message: '请输入房间面积', trigger: 'blur' },
+          ],
+          price: [
+            { required: true, message: '请输入房间价格', trigger: 'blur' },
           ]
         },
 
@@ -306,13 +342,29 @@
         // 打开弹窗
         this.showDialog = true
         // 把这一行的数据给到表单
-        this.form = data
+        this.form = {
+          id: data.id,
+          name: data.name,
+          bedType: data.bedType,
+          bathroom: data.bathroom,
+          contain: data.contain,
+          casement: data.casement,
+          wifi: data.wifi,
+          wifiName: data.wifiName,
+          wifiPassword: data.wifiPassword,
+          size: data.size,
+          price: data.price
+        }
       },
       // 点击弹窗里的确认按钮
       formSubmit() {
         this.$refs["form"].validate(async(valid) => {
           if (valid) {
-            const res = await User_api.updateUser(this.form)
+            if (!this.form.wifi) {
+              this.form.wifiName = ''
+              this.form.wifiPassword = ''
+            }
+            const res = await Hotel_api.updateDevice(this.form)
             if(res.data.code === 0) {
               this.$message.success("修改成功！")
               this.getTableData()
@@ -326,7 +378,7 @@
       },
       // 点击某一行里的删除按钮
       handleDelete(data) {
-        this.$confirm('此操作将删除该员工, 是否继续?', '提示', {
+        this.$confirm('此操作将删除该房间类型, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
@@ -334,9 +386,9 @@
           const params = {
             id: data.id
           }
-          const res = await User_api.deleteStaff(params)
+          const res = await Hotel_api.deleteDevice(params)
           if (res.data.code === 0) {
-            this.$message.success('删除成功')
+            this.$message.success('删除成功！')
             this.getTableData();
           } else {
             this.$message.warning(res.data.data)
@@ -350,7 +402,7 @@
       },
       // 点击某一行里的查看详情
       handleDetail(data) {
-        console.log(data)
+        // console.log(data)
         this.detail = data;
         // 打开弹窗
         this.showDetail = true;
