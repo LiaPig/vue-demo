@@ -85,7 +85,7 @@
               // 饿了么提示UI
               this.$message.success('新增员工成功！')
               // 路由跳转到宠物管理页面
-              this.$router.push({ path: '/staff' })
+              this.$router.push({ path: '/admin/staff' })
             }
             // 错误，显示错误
             else {
