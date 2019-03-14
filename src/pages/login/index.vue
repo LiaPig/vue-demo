@@ -26,6 +26,7 @@
               </el-select>
             </el-form-item>
             <el-button type="primary" plain @click="handleSubmit" style="width: 100px;margin-top: 30px">登录</el-button>
+            <el-button @click="handleRegister" style="width: 100px;margin-top: 30px">去注册</el-button>
           </el-form>
         </div>
       </div>
