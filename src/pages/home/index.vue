@@ -1,6 +1,6 @@
 <template>
     <div class="home">
-      首页
+      <img src="../../assets/img/bg.jpg" width="100%">
     </div>
 </template>
 
@@ -11,5 +11,4 @@
 </script>
 
 <style scoped>
-
 </style>
