@@ -42,4 +42,9 @@ export default class user {
   updateCustomer(data) {
     return request.post(`${this.cfg.Base_url}/customer/update`, data)
   }
+
+  // 根据身份证获取用户资料
+  getCustomerByIdCard(params) {
+    return request.get(`${this.cfg.Base_url}/customer/get/${params.idCard}`)
+  }
 }
