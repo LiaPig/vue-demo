@@ -16,17 +16,14 @@ export default class user {
   getStaff(params) {
     return request.get(`${this.cfg.Base_url}/staff/get`, params)
   }
-
   // 管理员新增员工
   addStaff(data) {
     return request.put(`${this.cfg.Base_url}/staff/add`, data)
   }
-
   // 管理员删除员工
   deleteStaff(data) {
     return request.delete(`${this.cfg.Base_url}/staff/delete/${data.id}`)
   }
-
   // 管理员编辑员工信息
   updateStaff(data) {
     return request.post(`${this.cfg.Base_url}/staff/update`, data)
@@ -37,28 +34,12 @@ export default class user {
   getCustomer(params) {
     return request.get(`${this.cfg.Base_url}/customer/get`, params)
   }
-
   // 客户注册
   addCustomer(data) {
     return request.put(`${this.cfg.Base_url}/customer/add`, data)
   }
-
-
-
-  // // 获取个人信息（管理员、审批员、驾驶员）
-  // getInformation(params) {
-  //   return request.get(`${this.cfg.Base_url}/get`, params)
-  // }
-  //
-  // // 用户修改个人信息（管理员、审批员、驾驶员）
-  // updateInformation(data) {
-  //   return request.post(`${this.cfg.Base_url}/update`, data)
-  // }
-  //
-  // // 获取驾驶员
-  // getDrivers(params) {
-  //     return request.get(`${this.cfg.Base_url}/driver/get`, params)
-  // }
-  //
-
+  // 编辑客户信息
+  updateCustomer(data) {
+    return request.post(`${this.cfg.Base_url}/customer/update`, data)
+  }
 }
