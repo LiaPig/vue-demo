@@ -153,7 +153,7 @@
 </template>
 
 <script>
-  import { Hotel_api } from "../../../api";
+  import { Hotel_api } from "../../../../api";
 
   export default {
     name: "index",
