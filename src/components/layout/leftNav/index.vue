@@ -92,7 +92,7 @@
             children: [
               {
                 path: '/admin/room',
-                title: '房间类型管理',
+                title: '客房信息管理',
               },
               {
                 path: '/admin/room/add',

@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--标题行-->
-    <div class="my-title">入住房间管理</div>
+    <div class="my-title">可直接入住客房</div>
     <!--客房信息管理表格-->
     <el-row class="aaa_table" v-loading="tableLoading" element-loading-text="拼命加载中">
       <template style="">
@@ -25,16 +25,8 @@
           </el-table-column>
           <el-table-column
             sortable
-            prop="type"
+            prop="typeName"
             label="房间类型">
-          </el-table-column>
-          <el-table-column
-            sortable
-            label="是否有效">
-            <template slot-scope="scope">
-              <template v-if="tableData.status === '1'">是</template>
-              <template v-else-if="tableData.status === '0'">否</template>
-            </template>
           </el-table-column>
           <el-table-column
             sortable
@@ -51,7 +43,7 @@
           <el-table-column
             label="操作">
             <template slot-scope="scope">
-              <el-button @click="handleEdit(scope.row)" type="text" size="small" style="margin-left: 10px;">编辑</el-button>
+              <el-button @click="handleCheckIn(scope.row)" type="text" size="small" style="margin-left: 10px;">入住</el-button>
               <el-button @click="handleDetail(scope.row)" type="text" size="small" style="margin-left: 10px;color: #67C23A;">查看详情</el-button>
             </template>
           </el-table-column>
@@ -59,58 +51,38 @@
       </template>
     </el-row>
 
-    <!--编辑弹出框-->
-    <el-dialog title="编辑客房信息" :visible.sync="showDialog" width="65%">
-      <el-form :model="form" ref="form" label-width="100px" :rules="formRules">
-        <!--房间号-->
+    <!--入住弹出框-->
+    <el-dialog title="填写入住客户信息" :visible.sync="showDialog">
+      <el-form :model="dynamicValidateForm" ref="dynamicValidateForm" label-width="100px" class="demo-dynamic">
+        <el-row v-for="(idCard, index) in dynamicValidateForm.idCards" :key="idCard.key">
+        <el-col :span="14" :offset="5" style="height: 40px;margin-bottom: 20px;">
+          <el-form-item
+            :label="'身份证' + (index + 1) + '：'"
+            :prop="'idCards.' + index + '.value'"
+            :rules="{ required: true, message: '请输入身份证号', trigger: 'blur' }">
+            <el-input v-model="idCard.value" style="width: calc(100% - 80px)"></el-input>
+            <el-button @click.prevent="removeDomain(idCard)" style="margin-left: 5px;width: 70px">删除</el-button>
+          </el-form-item>
+        </el-col>
+      </el-row>
         <el-row>
-          <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
-            <el-form-item label="房间号：" prop="room">
-              <el-input v-model="form.room" placeholder="请输入房间号"></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <!--房间类型-->
-        <el-row>
-          <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
-            <el-form-item label="房间类型：" prop="type">
-              <el-select v-model="form.type" placeholder="请选择房间类型" style="width: 100%">
-                <el-option
-                  v-for="item in options"
-                  :key="item.id"
-                  :label="item.name"
-                  :value="item.id">
-                </el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <!--是否有效-->
-        <el-row>
-          <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
-            <el-form-item label="是否有效：" prop="status">
-              <el-select v-model="form.status" placeholder="请选择是否有效" style="width: 100%">
-                <el-option label="有" value="1"></el-option>
-                <el-option label="无" value="0"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <!--当前状态-->
-        <el-row>
-          <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
-            <el-form-item label="当前状态：" prop="nowStatus">
-              <el-select v-model="form.nowStatus" placeholder="请选择当前状态" style="width: 100%">
-                <el-option label="空闲" value="空闲"></el-option>
-                <el-option label="预定" value="预定"></el-option>
-                <el-option label="入住" value="入住"></el-option>
-              </el-select>
+          <el-col :span="14" :offset="5" style="height: 40px;margin-bottom: 20px;">
+            <el-form-item label="退房日期：" prop="endTime" :rules="{ required: true, message: '退房日期不能为空', trigger: 'change'}">
+              <el-date-picker
+                v-model="dynamicValidateForm.endTime"
+                type="date"
+                placeholder="选择出生日期"
+                style="width: 100%"
+                format="yyyy-MM-dd"
+                value-format="yyyy-MM-dd">
+              </el-date-picker>
             </el-form-item>
           </el-col>
         </el-row>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="showDialog = false">取 消</el-button>
+        <el-button type="primary" @click="addIdCard">新增入住客户</el-button>
         <el-button type="warning" @click="formSubmit">确 定</el-button>
       </div>
     </el-dialog>
@@ -123,18 +95,15 @@
         </div>
         <div class="row">
           <span class="label">房间号：</span>
-          <span class="text">{{ detail.room }}</span>
+          <span class="text">{{ detail.name }}</span>
+        </div>
+        <div class="row">
+          <span class="label">房间类型ID：</span>
+          <span class="text">{{ detail.typeId }}</span>
         </div>
         <div class="row">
           <span class="label">房间类型：</span>
-          <span class="text">{{ detail.type }}</span>
-        </div>
-        <div class="row">
-          <span class="label">是否有效：</span>
-          <span class="text">
-            <template v-if="detail.status === '1'">是</template>
-            <template v-else-if="detail.status === '2'">否</template>
-          </span>
+          <span class="text">{{ detail.typeName }}</span>
         </div>
         <div class="row">
           <span class="label">当前状态：</span>
@@ -153,7 +122,7 @@
 </template>
 
 <script>
-  import { Hotel_api } from "../../../../api";
+  import { Housing_api } from "../../../../api";
 
   export default {
     name: "index",
@@ -170,58 +139,37 @@
         // 是否显示编辑弹窗
         showDialog: false,
         // 录入弹窗里的表单
-        form: {
-          hotel_id: 1,
-          room: null,
-          type: null,
-          status: null,
-          nowStatus: null
+        // 动态身份证表单
+        dynamicValidateForm: {
+          roomId: null,
+          idCards: [{
+            value: ''
+          }],
+          endTime: null
         },
-        // 表单验证
-        formRules: {
-          room: [
-            { required: true, message: '请填写房间号', trigger: 'blur' }
-          ],
-          type: [
-            { required: true, message: '请选择房间类型', trigger: 'change' },
-          ],
-          status: [
-            { required: true, message: '请选择是否有效', trigger: 'change' },
-          ],
-          nowStatus: [
-            { required: true, message: '请选择当前状态', trigger: 'change' },
-          ]
-        },
-
 
         // 是否显示详情弹窗
         showDetail: false,
         // 详情弹窗的数据
-        detail: {
-          "createTime": "2019-03-14T02:43:25.242Z",
-          "email": "string",
-          "hotelId": 0,
-          "id": 0,
-          "loginName": "string",
-          "password": "string",
-          "phone": "string",
-          "role": "string",
-          "upTime": "2019-03-14T02:43:25.242Z",
-          "userName": "string"
-        },
+        detail: {},
       }
     },
     // 一进来页面就调用
     mounted() {
-
+      this.getTableData()
     },
     methods: {
       // 获取表格数据
       async getTableData() {
         // 打开loading动画
         this.tableLoading = true
+        const params = {
+          startTime: new Date(),
+          endTime: new Date()
+        }
         // 调用后台api，进行交互
-        const res = await Hotel_api.getRoom({ hotelId: 1 })
+        const res = await Housing_api.searchHome(params)
+        // console.log(res)
         if (res.data.code === 0) {
           this.tableData = res.data.data
         } else {
@@ -230,26 +178,34 @@
         // 关闭loading动画
         this.tableLoading = false;
       },
-      // 点击某一行里的编辑按钮
-      handleEdit(data) {
+      // 点击某一行里的入住按钮
+      handleCheckIn(data) {
+        // console.log(data)
         // 打开弹窗
         this.showDialog = true
         // 把这一行的数据给到表单
-        this.form = {
-          hotel_id: 1,
-          room: data.room,
-          type: data.type,
-          status: data.status,
-          nowStatus: data.nowStatus
+        this.dynamicValidateForm = {
+          roomId: data.id,
+          idCard: null,
+          idCards: [{
+            value: ''
+          }],
+          endTime: null
         }
       },
       // 点击弹窗里的确认按钮
       formSubmit() {
-        this.$refs["form"].validate(async(valid) => {
+        this.$refs["dynamicValidateForm"].validate(async(valid) => {
           if (valid) {
-            const res = await Hotel_api.updateRoom(this.form)
+            this.dynamicValidateForm.idCard = []
+            for(let item of this.dynamicValidateForm.idCards) {
+              this.dynamicValidateForm.idCard.push(item.value)
+            }
+            delete this.dynamicValidateForm.idCards
+            // console.log(this.dynamicValidateForm)
+            const res = await Housing_api.checkIn(this.dynamicValidateForm)
             if(res.data.code === 0) {
-              this.$message.success("修改成功！")
+              this.$message.success("办理入住成功！")
               this.getTableData()
               // 关闭弹窗
               this.showDialog = false
@@ -259,22 +215,26 @@
           }
         });
       },
+      // 点击弹窗里的身份证表单项的删除按钮
+      removeDomain(item) {
+        const index = this.dynamicValidateForm.idCards.indexOf(item)
+        if (index !== -1) {
+          this.dynamicValidateForm.idCards.splice(index, 1)
+        }
+      },
+      // 点击弹窗里的新增入住客户按钮
+      addIdCard() {
+        this.dynamicValidateForm.idCards.push({
+          value: '',
+          key: Date.now()
+        });
+      },
       // 点击某一行里的查看详情
       handleDetail(data) {
         // console.log(data)
         this.detail = data;
         // 打开弹窗
         this.showDetail = true;
-      },
-      // 获取房间类型选项
-      async getDeviceOptions() {
-        // 调用后台api，进行交互
-        const res = await Hotel_api.getDevice()
-        if (res.data.code === 0) {
-          this.options = res.data.data
-        } else {
-          this.$message.warning(res.data.data)
-        }
       },
     }
   }
