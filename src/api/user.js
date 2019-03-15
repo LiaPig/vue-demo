@@ -27,6 +27,12 @@ export default class user {
     return request.delete(`${this.cfg.Base_url}/staff/delete/${data.id}`)
   }
 
+  // 管理员编辑员工信息
+  updateStaff(data) {
+    return request.post(`${this.cfg.Base_url}/staff/update`, data)
+  }
+
+
   // 获取所有客户
   getCustomer(params) {
     return request.get(`${this.cfg.Base_url}/customer/get`, params)
@@ -52,13 +58,6 @@ export default class user {
   // // 获取驾驶员
   // getDrivers(params) {
   //     return request.get(`${this.cfg.Base_url}/driver/get`, params)
-  // }
-  //
-
-
-  // // 管理员修改审批员/审批员修改驾驶员信息
-  // updateUser(data) {
-  //   return request.post(`${this.cfg.Base_url}/updateByOther`, data)
   // }
   //
 

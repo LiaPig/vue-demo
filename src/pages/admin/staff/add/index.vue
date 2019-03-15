@@ -78,7 +78,7 @@
         this.$refs['ruleForm'].validate(async(valid) => {
           // 通过了表单验证
           if (valid) {
-            console.log(this.ruleForm)
+            // console.log(this.ruleForm)
             // 调取后台接口
             const res = await User_api.addStaff(this.ruleForm)
             if (res.data.code === 0) {

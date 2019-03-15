@@ -60,60 +60,43 @@
       <!--编辑弹出框-->
       <el-dialog title="编辑员工信息" :visible.sync="showDialog" width="65%">
         <el-form :model="form" ref="form" label-width="100px" :rules="formRules">
-          <!--用户名-->
+          <!--登录账号-->
           <el-row>
             <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
-              <el-form-item label="用户名：" prop="loginName">
-                <el-input v-model="form.loginName" placeholder="请输入用户名"></el-input>
+              <el-form-item label="登录账号：" prop="loginName">
+                <el-input v-model="form.loginName" style="width: 100%"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <!--真实姓名-->
           <el-row>
             <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
-              <el-form-item label="真实姓名：" prop="realName">
-                <el-input v-model="form.realName" placeholder="请输入真实姓名"></el-input>
+              <el-form-item label="真实姓名：" prop="userName">
+                <el-input v-model="form.userName" style="width: 100%"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
-          <!--密码-->
+          <!--登录密码-->
           <el-row>
             <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
-              <el-form-item label="密码：" prop="password">
-                <el-input v-model="form.password" type="password" placeholder="请输入密码"></el-input>
+              <el-form-item label="登录密码：" prop="password">
+                <el-input v-model="form.password" style="width: 100%"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
-          <!--性别-->
+          <!--手机号码-->
           <el-row>
             <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
-              <el-form-item prop="sex" label="性别：">
-                <el-switch
-                  v-model="form.sex"
-                  active-color="#ff4949"
-                  inactive-color="#13ce66"
-                  active-text="女"
-                  inactive-text="男"
-                  active-value="女"
-                  inactive-value="男"
-                  style="float: left;margin-top: 10px;margin-left: 10px;">
-                </el-switch>
+              <el-form-item label="手机号码：" prop="phone">
+                <el-input v-model="form.phone" style="width: 100%"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
-          <!--电话号码-->
+          <!--电子邮箱-->
           <el-row>
             <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
-              <el-form-item label="电话号码：" prop="phone">
-                <el-input v-model="form.phone" placeholder="请输入电话号码"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <!--身份证号-->
-          <el-row>
-            <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
-              <el-form-item label="身份证号：" prop="idCard">
-                <el-input v-model="form.idCard" placeholder="请输入身份证号"></el-input>
+              <el-form-item label="电子邮箱：" prop="email">
+                <el-input v-model="form.email" style="width: 100%"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -177,35 +160,25 @@
           // 是否显示编辑弹窗
           showDialog: false,
           // 录入弹窗里的表单
-          form: {
-            loginName: "",
-            realName: '',
-            password: "",
-            sex: '',
-            idCard: '',
-            phone: ''
-          },
+          form: {},
           // 表单验证
           formRules: {
             loginName: [
-              { required: true, message: '请输入用户名', trigger: 'blur' }
+              { required: true, message: '请填写登录账号', trigger: 'blur' }
             ],
-            realName: [
-              { required: true, message: '请输入真实姓名', trigger: 'blur' }
+            userName: [
+              { required: true, message: '请填写真实姓名', trigger: 'blur' }
             ],
             password: [
-              { required: true, message: '请输入密码', trigger: 'blur' }
-            ],
-            sex: [
-              { required: true, message: '请选择性别', trigger: 'change' }
+              { required: true, message: '请填写登录密码', trigger: 'blur' }
             ],
             phone: [
               { required: true, message: '请输入手机号码', trigger: 'blur' },
               { pattern: /^1[3456789]\d{9}$/, message: '请输入正确的手机号码' }
             ],
-            idCard: [
-              { required: true, message: '请输入身份证号', trigger: 'blur' },
-              { pattern: /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/, message: '请输入正确的身份证号' }
+            email: [
+              { required: true, message: '请输入邮箱地址', trigger: 'blur' },
+              { pattern: /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/, message: '请输入正确的邮箱地址' }
             ]
           },
 
@@ -249,16 +222,25 @@
         },
         // 点击某一行里的编辑按钮
         handleEdit(data) {
+          // console.log(data)
           // 打开弹窗
           this.showDialog = true
           // 把这一行的数据给到表单
-          this.form = data
+          this.form = {
+            email: data.email,
+            hotelId: data.hotelId,
+            id: data.id,
+            loginName: data.loginName,
+            password: data.password,
+            phone: data.phone,
+            userName: data.userName
+          }
         },
         // 点击弹窗里的确认按钮
         formSubmit() {
           this.$refs["form"].validate(async(valid) => {
             if (valid) {
-              const res = await User_api.updateUser(this.form)
+              const res = await User_api.updateStaff(this.form)
               if(res.data.code === 0) {
                 this.$message.success("修改成功！")
                 this.getTableData()
@@ -296,7 +278,7 @@
         },
         // 点击某一行里的查看详情
         handleDetail(data) {
-          console.log(data)
+          // console.log(data)
           this.detail = data;
           // 打开弹窗
           this.showDetail = true;
