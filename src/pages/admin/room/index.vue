@@ -176,18 +176,7 @@
         // 是否显示详情弹窗
         showDetail: false,
         // 详情弹窗的数据
-        detail: {
-          "createTime": "2019-03-14T02:43:25.242Z",
-          "email": "string",
-          "hotelId": 0,
-          "id": 0,
-          "loginName": "string",
-          "password": "string",
-          "phone": "string",
-          "role": "string",
-          "upTime": "2019-03-14T02:43:25.242Z",
-          "userName": "string"
-        },
+        detail: {},
       }
     },
     // 一进来页面就调用
