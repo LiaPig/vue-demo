@@ -73,9 +73,9 @@ const routes = [
       {
         path: '/home',
         component: home,
-        // 需要权限验证，路由拦截
+        // 不需要权限验证，路由拦截
         meta: {
-          requiresAuth: true
+          requiresAuth: false
         }
       },
 
