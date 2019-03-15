@@ -230,6 +230,7 @@
             email: data.email,
             hotelId: data.hotelId,
             id: data.id,
+            role: data.role,
             loginName: data.loginName,
             password: data.password,
             phone: data.phone,
