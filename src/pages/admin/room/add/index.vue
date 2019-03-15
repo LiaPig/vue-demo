@@ -19,12 +19,6 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="是否有效：" prop="status">
-            <el-select v-model="ruleForm.status" placeholder="请选择是否有效" style="width: 100%">
-              <el-option label="有" value="1"></el-option>
-              <el-option label="无" value="0"></el-option>
-            </el-select>
-          </el-form-item>
           <el-form-item label="当前状态：" prop="nowStatus">
             <el-select v-model="ruleForm.nowStatus" placeholder="请选择当前状态" style="width: 100%">
               <el-option label="空闲" value="空闲"></el-option>
@@ -58,7 +52,7 @@
           hotel_id: 1,
           room: null,
           type: null,
-          status: null,
+          // status: null,
           nowStatus: null
         },
         // 表单验证数据
@@ -68,9 +62,6 @@
           ],
           type: [
             { required: true, message: '请选择房间类型', trigger: 'change' },
-          ],
-          status: [
-            { required: true, message: '请选择是否有效', trigger: 'change' },
           ],
           nowStatus: [
             { required: true, message: '请选择当前状态', trigger: 'change' },
@@ -107,7 +98,7 @@
               // 饿了么提示UI
               this.$message.success('新增客房信息成功！')
               // 路由跳转到宠物管理页面
-              // this.$router.push({ path: '/admin/room' })
+              this.$router.push({ path: '/admin/room' })
             }
             // 错误，显示错误
             else {
