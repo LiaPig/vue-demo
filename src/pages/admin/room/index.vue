@@ -25,16 +25,8 @@
           </el-table-column>
           <el-table-column
             sortable
-            prop="type"
+            prop="typeName"
             label="房间类型">
-          </el-table-column>
-          <el-table-column
-            sortable
-            label="是否有效">
-            <template slot-scope="scope">
-              <template v-if="tableData.status === '1'">是</template>
-              <template v-else-if="tableData.status === '0'">否</template>
-            </template>
           </el-table-column>
           <el-table-column
             sortable
@@ -82,17 +74,6 @@
                   :label="item.name"
                   :value="item.id">
                 </el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <!--是否有效-->
-        <el-row>
-          <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
-            <el-form-item label="是否有效：" prop="status">
-              <el-select v-model="form.status" placeholder="请选择是否有效" style="width: 100%">
-                <el-option label="有" value="1"></el-option>
-                <el-option label="无" value="0"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
@@ -243,7 +224,7 @@
           hotel_id: 1,
           room: data.room,
           type: data.type,
-          status: data.status,
+          // status: data.status,
           nowStatus: data.nowStatus
         }
       },
