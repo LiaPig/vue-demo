@@ -2,7 +2,7 @@
   <div>
     <!--标题行-->
     <div class="my-title">客户信息管理</div>
-    <!--员工信息管理表格-->
+    <!--客户信息管理表格-->
     <el-row class="aaa_table" v-loading="tableLoading" element-loading-text="拼命加载中">
       <template style="">
         <el-table
@@ -68,7 +68,6 @@
           <el-table-column
             label="操作">
             <template slot-scope="scope">
-              <el-button @click="handleDelete(scope.row)" type="text" size="small" style="color: #F56C6C;">删除</el-button>
               <el-button @click="handleEdit(scope.row)" type="text" size="small" style="margin-left: 10px;">编辑</el-button>
               <el-button @click="handleDetail(scope.row)" type="text" size="small" style="margin-left: 10px;color: #67C23A;">查看详情</el-button>
             </template>
@@ -79,61 +78,86 @@
 
     <!--编辑弹出框-->
     <el-dialog title="编辑客户信息" :visible.sync="showDialog" width="65%">
-      <el-form :model="form" ref="form" label-width="100px" :rules="formRules">
-        <!--用户名-->
+      <el-form :model="form" ref="form" label-width="120px" :rules="formRules">
+        <!--登录账号-->
         <el-row>
           <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
-            <el-form-item label="用户名：" prop="loginName">
-              <el-input v-model="form.loginName" placeholder="请输入用户名"></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <!--真实姓名-->
-        <el-row>
-          <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
-            <el-form-item label="真实姓名：" prop="realName">
-              <el-input v-model="form.realName" placeholder="请输入真实姓名"></el-input>
+            <el-form-item prop="loginName" label="登录账号：" class="whiteLabel">
+              <el-input v-model="form.loginName" disabled placeholder="请输入登录账号"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <!--密码-->
         <el-row>
           <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
-            <el-form-item label="密码：" prop="password">
-              <el-input v-model="form.password" type="password" placeholder="请输入密码"></el-input>
+            <el-form-item prop="password" label="密码：" class="whiteLabel">
+              <el-input v-model="form.password" placeholder="请输入密码" type="password"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <!--真实姓名-->
+        <el-row>
+          <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
+            <el-form-item prop="userName" label="真实姓名：" class="whiteLabel">
+              <el-input v-model="form.userName" placeholder="请输入真实姓名"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <!--手机号码-->
+        <el-row>
+          <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
+            <el-form-item prop="phone" label="手机号码：" class="whiteLabel">
+              <el-input v-model="form.phone" placeholder="请输入手机号码"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <!--性别-->
         <el-row>
           <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
-            <el-form-item prop="sex" label="性别：">
-              <el-switch
-                v-model="form.sex"
-                active-color="#ff4949"
-                inactive-color="#13ce66"
-                active-text="女"
-                inactive-text="男"
-                active-value="女"
-                inactive-value="男"
-                style="float: left;margin-top: 10px;margin-left: 10px;">
-              </el-switch>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <!--电话号码-->
-        <el-row>
-          <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
-            <el-form-item label="电话号码：" prop="phone">
-              <el-input v-model="form.phone" placeholder="请输入电话号码"></el-input>
+            <el-form-item prop="sex" label="性别：" class="whiteLabel">
+              <el-select v-model="form.sex" placeholder="请选择性别" style="width: 100%">
+                <el-option label="男" value="男"></el-option>
+                <el-option label="女" value="女"></el-option>
+              </el-select>
             </el-form-item>
           </el-col>
         </el-row>
         <!--身份证号-->
         <el-row>
           <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
-            <el-form-item label="身份证号：" prop="idCard">
+            <el-form-item prop="idCard" label="身份证号：" class="whiteLabel">
               <el-input v-model="form.idCard" placeholder="请输入身份证号"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <!--民族-->
+        <el-row>
+          <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
+            <el-form-item prop="nation" label="民族：" class="whiteLabel">
+              <el-input v-model="form.nation" placeholder="请输入民族"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <!--出生日期-->
+        <el-row>
+          <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
+            <el-form-item prop="birth" label="出生日期：" class="whiteLabel">
+              <el-date-picker
+                v-model="form.birth"
+                type="date"
+                placeholder="选择出生日期"
+                style="width: 100%"
+                format="yyyy-MM-dd"
+                value-format="yyyy-MM-dd">
+              </el-date-picker>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <!--身份证住址-->
+        <el-row>
+          <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
+            <el-form-item prop="address" label="身份证住址：" class="whiteLabel">
+              <el-input v-model="form.address" placeholder="请输入身份证住址"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -224,25 +248,34 @@
         // 表单验证
         formRules: {
           loginName: [
-            { required: true, message: '请输入用户名', trigger: 'blur' }
-          ],
-          realName: [
-            { required: true, message: '请输入真实姓名', trigger: 'blur' }
+            { required: true, message: '请输入登录账号', trigger: 'blur' }
           ],
           password: [
             { required: true, message: '请输入密码', trigger: 'blur' }
           ],
-          sex: [
-            { required: true, message: '请选择性别', trigger: 'change' }
+          userName: [
+            { required: true, message: '请输入真实姓名', trigger: 'blur' }
           ],
           phone: [
             { required: true, message: '请输入手机号码', trigger: 'blur' },
             { pattern: /^1[3456789]\d{9}$/, message: '请输入正确的手机号码' }
           ],
+          sex: [
+            { required: true, message: '请选择性别', trigger: 'change' },
+          ],
           idCard: [
             { required: true, message: '请输入身份证号', trigger: 'blur' },
             { pattern: /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/, message: '请输入正确的身份证号' }
-          ]
+          ],
+          nation: [
+            { required: true, message: '请输入民族', trigger: 'blur' }
+          ],
+          birth: [
+            { required: true, message: '请选择出生日期', trigger: 'change' }
+          ],
+          address: [
+            { required: true, message: '请输入身份证住址', trigger: 'blur' }
+          ],
         },
 
 
@@ -277,13 +310,24 @@
         // 打开弹窗
         this.showDialog = true
         // 把这一行的数据给到表单
-        this.form = data
+        this.form = {
+          address: data.address,
+          birth: data.birth,
+          id: data.id,
+          idCard: data.idCard,
+          loginName: data.loginName,
+          nation: data.nation,
+          password: data.password,
+          phone: data.phone,
+          sex: data.sex,
+          userName: data.userName
+        }
       },
       // 点击弹窗里的确认按钮
       formSubmit() {
         this.$refs["form"].validate(async(valid) => {
           if (valid) {
-            const res = await User_api.updateUser(this.form)
+            const res = await User_api.updateCustomer(this.form)
             if(res.data.code === 0) {
               this.$message.success("修改成功！")
               this.getTableData()
@@ -293,30 +337,6 @@
               this.$message.warning(res.data.data)
             }
           }
-        });
-      },
-      // 点击某一行里的删除按钮
-      handleDelete(data) {
-        this.$confirm('此操作将删除该员工, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(async() => {
-          const params = {
-            id: data.id
-          }
-          const res = await User_api.deleteStaff(params)
-          if (res.data.code === 0) {
-            this.$message.success('删除成功')
-            this.getTableData();
-          } else {
-            this.$message.warning(res.data.data)
-          }
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消删除'
-          });
         });
       },
       // 点击某一行里的查看详情
