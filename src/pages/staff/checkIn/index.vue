@@ -2,11 +2,11 @@
   <div>
     <!--标题行-->
     <div class="my-title">入住房间管理</div>
-    <!--身份证查询、刷新表格按钮、添加用户按钮-->
+    <!--身份证查询、刷新表格按钮、添加客户按钮-->
     <div style="margin-top: 20px;text-align: left">
       身份证号：<el-input placeholder="请输入身份证号" v-model="idCard" clearable style="width: 200px"></el-input>
       <el-button @click="searchCustomer">搜索客户</el-button>
-      <el-button @click="handleAdd" type="primary" style="float: right">添加用户</el-button>
+      <el-button @click="handleAdd" type="primary" style="float: right">添加客户</el-button>
     </div>
     <!--客房信息管理表格-->
     <el-row class="aaa_table" v-loading="tableLoading" element-loading-text="拼命加载中">
