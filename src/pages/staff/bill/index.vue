@@ -2,6 +2,22 @@
   <div>
     <!--标题行-->
     <div class="my-title">账单信息管理</div>
+    <!--日期搜索框、查看所有按钮-->
+    <div style="margin-top: 20px;text-align: left">
+      时间段：<el-date-picker
+      v-model="searchTime"
+      type="daterange"
+      range-separator="至"
+      start-placeholder="开始日期"
+      end-placeholder="结束日期"
+      format="yyyy-MM-dd"
+      value-format="yyyy-MM-dd"
+      style="width: 280px">
+    </el-date-picker>
+      <el-button @click="searchBill">搜索账单</el-button>
+      <el-button @click="getTableData" type="primary" style="float: right">查看所有账单</el-button>
+    </div>
+
     <!--账单信息管理表格-->
     <el-row class="aaa_table" v-loading="tableLoading" element-loading-text="拼命加载中">
       <template style="">
@@ -58,61 +74,6 @@
       </template>
     </el-row>
 
-    <!--编辑弹出框-->
-    <el-dialog title="编辑客房信息" :visible.sync="showDialog" width="65%">
-      <el-form :model="form" ref="form" label-width="100px" :rules="formRules">
-        <!--房间号-->
-        <el-row>
-          <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
-            <el-form-item label="房间号：" prop="room">
-              <el-input v-model="form.room" placeholder="请输入房间号"></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <!--房间类型-->
-        <el-row>
-          <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
-            <el-form-item label="房间类型：" prop="type">
-              <el-select v-model="form.type" placeholder="请选择房间类型" style="width: 100%">
-                <el-option
-                  v-for="item in options"
-                  :key="item.id"
-                  :label="item.name"
-                  :value="item.id">
-                </el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <!--是否有效-->
-        <el-row>
-          <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
-            <el-form-item label="是否有效：" prop="status">
-              <el-select v-model="form.status" placeholder="请选择是否有效" style="width: 100%">
-                <el-option label="有" value="1"></el-option>
-                <el-option label="无" value="0"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <!--当前状态-->
-        <el-row>
-          <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
-            <el-form-item label="当前状态：" prop="nowStatus">
-              <el-select v-model="form.nowStatus" placeholder="请选择当前状态" style="width: 100%">
-                <el-option label="空闲" value="空闲"></el-option>
-                <el-option label="预定" value="预定"></el-option>
-                <el-option label="入住" value="入住"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-        </el-row>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="showDialog = false">取 消</el-button>
-        <el-button type="warning" @click="formSubmit">确 定</el-button>
-      </div>
-    </el-dialog>
     <!--详情弹窗-->
     <el-dialog title="查看客房信息详情" :visible.sync="showDetail">
       <div class="dialogDetail">
@@ -163,51 +124,13 @@
         // 表格的loading
         tableLoading: false,
 
-        // 房间类型选项
-        options: [],
-
-        // 是否显示编辑弹窗
-        showDialog: false,
-        // 录入弹窗里的表单
-        form: {
-          hotel_id: 1,
-          room: null,
-          type: null,
-          status: null,
-          nowStatus: null
-        },
-        // 表单验证
-        formRules: {
-          room: [
-            { required: true, message: '请填写房间号', trigger: 'blur' }
-          ],
-          type: [
-            { required: true, message: '请选择房间类型', trigger: 'change' },
-          ],
-          status: [
-            { required: true, message: '请选择是否有效', trigger: 'change' },
-          ],
-          nowStatus: [
-            { required: true, message: '请选择当前状态', trigger: 'change' },
-          ]
-        },
-
+        // 搜索数据
+        searchTime: null,
 
         // 是否显示详情弹窗
         showDetail: false,
         // 详情弹窗的数据
-        detail: {
-          "createTime": "2019-03-14T02:43:25.242Z",
-          "email": "string",
-          "hotelId": 0,
-          "id": 0,
-          "loginName": "string",
-          "password": "string",
-          "phone": "string",
-          "role": "string",
-          "upTime": "2019-03-14T02:43:25.242Z",
-          "userName": "string"
-        },
+        detail: {},
       }
     },
     // 一进来页面就调用
@@ -230,35 +153,7 @@
         // 关闭loading动画
         this.tableLoading = false;
       },
-      // 点击某一行里的编辑按钮
-      handleEdit(data) {
-        // 打开弹窗
-        this.showDialog = true
-        // 把这一行的数据给到表单
-        this.form = {
-          hotel_id: 1,
-          room: data.room,
-          type: data.type,
-          status: data.status,
-          nowStatus: data.nowStatus
-        }
-      },
-      // 点击弹窗里的确认按钮
-      formSubmit() {
-        this.$refs["form"].validate(async(valid) => {
-          if (valid) {
-            const res = await Hotel_api.updateRoom(this.form)
-            if(res.data.code === 0) {
-              this.$message.success("修改成功！")
-              this.getTableData()
-              // 关闭弹窗
-              this.showDialog = false
-            } else {
-              this.$message.warning(res.data.data)
-            }
-          }
-        });
-      },
+
       // 点击某一行里的查看详情
       handleDetail(data) {
         // console.log(data)
@@ -266,6 +161,21 @@
         // 打开弹窗
         this.showDetail = true;
       },
+
+      // 根据时间段搜账单
+      async searchBill() {
+        const params = {
+          startTime: this.searchTime[0],
+          endTime: this.searchTime[1]
+        }
+        // 调用后台api，进行交互
+        const res = await Bill_api.getDateBill(params)
+        if (res.data.code === 0) {
+          this.tableData = res.data.data
+        } else {
+          this.$message.warning(res.data.data)
+        }
+      }
     }
   }
 </script>
