@@ -30,10 +30,9 @@ import adminRoomAdd from '@/pages/admin/room/add'
 // 员工的页面
 // 客房信息管理
 import staffRoom from '@/pages/staff/room'
-// 已预约入住客房
-import staffCheckInReserved from '@/pages/staff/checkIn/reserved'
-// 可直接入住客房
-import staffCheckInAvailable from '@/pages/staff/checkIn/available'
+// 入住客房管理
+import staffCheckIn from '@/pages/staff/checkIn/'
+
 
 // 退还房间管理
 import staffCheckOut from '@/pages/staff/checkOut'
@@ -157,19 +156,10 @@ const routes = [
           requiresAuth: true
         }
       },
-      // 已预约入住客房
+      // 入住房间管理
       {
-        path: '/staff/checkIn/reserved',
-        component: staffCheckInReserved,
-        // 需要权限验证，路由拦截
-        meta: {
-          requiresAuth: true
-        }
-      },
-      // 可直接入住客房
-      {
-        path: '/staff/checkIn/available',
-        component: staffCheckInAvailable,
+        path: '/staff/checkIn',
+        component: staffCheckIn,
         // 需要权限验证，路由拦截
         meta: {
           requiresAuth: true

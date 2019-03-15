@@ -6,6 +6,11 @@ export default class housing {
     }
   }
 
+  // 获取当日可入住的房间
+  canCheckIn(params) {
+    return request.get(`${this.cfg.Base_url}/get`, params)
+  }
+
   // 根据时间段查询房间
   searchHome(data) {
     return request.post(`${this.cfg.Base_url}/search`, data)

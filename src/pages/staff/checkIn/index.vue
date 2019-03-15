@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--标题行-->
-    <div class="my-title">可直接入住客房</div>
+    <div class="my-title">已预约入住客房</div>
     <!--客房信息管理表格-->
     <el-row class="aaa_table" v-loading="tableLoading" element-loading-text="拼命加载中">
       <template style="">
@@ -55,16 +55,16 @@
     <el-dialog title="填写入住客户信息" :visible.sync="showDialog">
       <el-form :model="dynamicValidateForm" ref="dynamicValidateForm" label-width="100px" class="demo-dynamic">
         <el-row v-for="(idCard, index) in dynamicValidateForm.idCards" :key="idCard.key">
-        <el-col :span="14" :offset="5" style="height: 40px;margin-bottom: 20px;">
-          <el-form-item
-            :label="'身份证' + (index + 1) + '：'"
-            :prop="'idCards.' + index + '.value'"
-            :rules="{ required: true, message: '请输入身份证号', trigger: 'blur' }">
-            <el-input v-model="idCard.value" style="width: calc(100% - 80px)"></el-input>
-            <el-button @click.prevent="removeDomain(idCard)" style="margin-left: 5px;width: 70px">删除</el-button>
-          </el-form-item>
-        </el-col>
-      </el-row>
+          <el-col :span="14" :offset="5" style="height: 40px;margin-bottom: 20px;">
+            <el-form-item
+              :label="'身份证' + (index + 1) + '：'"
+              :prop="'idCards.' + index + '.value'"
+              :rules="{ required: true, message: '请输入身份证号', trigger: 'blur' }">
+              <el-input v-model="idCard.value" style="width: calc(100% - 80px)"></el-input>
+              <el-button @click.prevent="removeDomain(idCard)" style="margin-left: 5px;width: 70px">删除</el-button>
+            </el-form-item>
+          </el-col>
+        </el-row>
         <el-row>
           <el-col :span="14" :offset="5" style="height: 40px;margin-bottom: 20px;">
             <el-form-item label="退房日期：" prop="endTime" :rules="{ required: true, message: '退房日期不能为空', trigger: 'change'}">
@@ -122,7 +122,7 @@
 </template>
 
 <script>
-  import { Housing_api } from "../../../../api";
+  import { Housing_api } from "../../../api/index";
 
   export default {
     name: "index",
@@ -163,12 +163,8 @@
       async getTableData() {
         // 打开loading动画
         this.tableLoading = true
-        const params = {
-          startTime: new Date(),
-          endTime: new Date()
-        }
         // 调用后台api，进行交互
-        const res = await Housing_api.searchHome(params)
+        const res = await Housing_api.canCheckIn()
         // console.log(res)
         if (res.data.code === 0) {
           this.tableData = res.data.data

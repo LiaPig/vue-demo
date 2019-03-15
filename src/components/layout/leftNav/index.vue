@@ -117,17 +117,13 @@
           },
           // 入住房间管理
           {
-            path: '/staff/checkIn/reserved',
+            path: '/staff/checkIn',
             title: '入住房间管理',
             icon: 'el-icon-setting',
             children: [
               {
-                path: '/staff/checkIn/reserved',
-                title: '已预约入住客房',
-              },
-              {
-                path: '/staff/checkIn/available',
-                title: '可直接入住客房',
+                path: '/staff/checkIn',
+                title: '入住房间管理',
               }
             ]
           },
