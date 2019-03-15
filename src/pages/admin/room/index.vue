@@ -219,9 +219,10 @@
         // 把这一行的数据给到表单
         this.form = {
           hotel_id: 1,
-          room: data.room,
-          type: data.type,
-          // status: data.status,
+          id: data.id,
+          room: data.name,
+          type: data.typeId,
+          status: '1',
           nowStatus: data.nowStatus
         }
       },
