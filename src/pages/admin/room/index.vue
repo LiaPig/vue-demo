@@ -105,18 +105,15 @@
         </div>
         <div class="row">
           <span class="label">房间号：</span>
-          <span class="text">{{ detail.room }}</span>
+          <span class="text">{{ detail.name }}</span>
+        </div>
+        <div class="row">
+          <span class="label">房间类型ID：</span>
+          <span class="text">{{ detail.typeId }}</span>
         </div>
         <div class="row">
           <span class="label">房间类型：</span>
-          <span class="text">{{ detail.type }}</span>
-        </div>
-        <div class="row">
-          <span class="label">是否有效：</span>
-          <span class="text">
-            <template v-if="detail.status === '1'">是</template>
-            <template v-else-if="detail.status === '2'">否</template>
-          </span>
+          <span class="text">{{ detail.typeName }}</span>
         </div>
         <div class="row">
           <span class="label">当前状态：</span>
