@@ -50,7 +50,9 @@
               v-model="registerForm.birth"
               type="date"
               placeholder="选择出生日期"
-              style="width: 100%">
+              style="width: 100%"
+              format="yyyy-MM-dd"
+              value-format="yyyy-MM-dd">
             </el-date-picker>
           </el-form-item>
           <!--身份证住址-->
@@ -145,9 +147,7 @@
           if (valid) {
             // 发起异步请求
             // console.log(this.registerForm)
-            const data = this.registerForm
-            data.birth = this.baseJs.formatDate.format(data.birth, 'yyyy-MM-dd')
-            const res = await User_api.addCustomer(data)
+            const res = await User_api.addCustomer(this.registerForm)
             // 登录成功
             if(res.data.code === 0) {
               this.$notify({
