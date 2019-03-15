@@ -19,5 +19,9 @@ export default class housing {
   checkIn(data) {
     return request.post(`${this.cfg.Base_url}/checkIn`, data)
   }
+  // 退还房间
+  checkOut(data) {
+    return request.post(`${this.cfg.Base_url}/checkOut`, data)
+  }
 
 }
