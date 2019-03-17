@@ -32,12 +32,16 @@ import adminRoomAdd from '@/pages/admin/room/add'
 import staffRoom from '@/pages/staff/room'
 // 入住客房管理
 import staffCheckIn from '@/pages/staff/checkIn/'
-
-
 // 退还房间管理
 import staffCheckOut from '@/pages/staff/checkOut'
 // 账单信息管理
 import staffBill from '@/pages/staff/bill'
+// 客户的页面
+// 更新个人信息
+import updateInformation from '@/pages/customer/updateInformation'
+
+
+
 
 
 Vue.use(Router)
@@ -183,8 +187,16 @@ const routes = [
           requiresAuth: true
         }
       },
-
       // 客户的页面
+      {
+        path: '/customer/updateInformation',
+        component: updateInformation,
+        // 需要权限验证，路由拦截
+        meta: {
+          requiresAuth: true
+        }
+      },
+
     ]
   }
 ]

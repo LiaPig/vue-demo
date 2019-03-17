@@ -153,7 +153,19 @@
           },
         ],
         // 客户菜单
-        customerMenu: [],
+        customerMenu: [
+          {
+            path: '/customer/updateInformation',
+            title: '更新个人信息',
+            icon: 'el-icon-setting',
+            children: [
+              {
+                path: '/customer/updateInformation',
+                title: '更新个人信息',
+              }
+            ]
+          },
+        ],
         // 显示的菜单
         menuList: []
       }
