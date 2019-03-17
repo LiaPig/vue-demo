@@ -1,17 +1,17 @@
 <template>
-  <div class="login">
+  <div class="register">
     <!--背景图-->
     <img src="../../assets/img/bg.jpg" class="bg">
     <!--内容-->
-    <div class="login-content">
+    <div class="register-content">
       <!--标题-->
       <div class="title">注册--酒店客房管理信息系统</div>
       <!--表单-->
       <div class="form-content">
         <el-form :model="registerForm" ref="registerForm" :rules="rules" label-width="120px">
           <!--登录账号-->
-          <el-form-item prop="loginName" label="登录账号：" class="whiteLabel">
-            <el-input v-model="registerForm.loginName" placeholder="请输入登录账号"></el-input>
+          <el-form-item prop="registerName" label="登录账号：" class="whiteLabel">
+            <el-input v-model="registerForm.registerName" placeholder="请输入登录账号"></el-input>
           </el-form-item>
           <!--密码-->
           <el-form-item prop="password" label="密码：" class="whiteLabel">
@@ -88,7 +88,7 @@
       return {
         // 表单数据
         registerForm: {
-          loginName: "",
+          registerName: "",
           password: "",
           password2: null,
           userName: null,
@@ -101,7 +101,7 @@
         },
         // 表单验证
         rules: {
-          loginName: [
+          registerName: [
             { required: true, message: '请输入登录账号', trigger: 'blur' }
           ],
           password: [
@@ -155,7 +155,7 @@
                 message: '已前往登录',
                 type: 'success'
               });
-              this.$router.push({path: '/login'});
+              this.$router.push({path: '/register'});
             }
             else {
               this.$message({
@@ -178,14 +178,14 @@
 </script>
 
 <style>
-  .bg {
+  .register .bg {
     position: absolute;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
   }
-  .login-content {
+  .register .register-content {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -195,19 +195,19 @@
     background-color: rgba(24, 24, 24, .8);
     border-radius: 50px;
   }
-  .title {
+  .register .title {
     margin-top: 30px;
     display: inline-block;
     width: 100%;
     color: #fff;
     font-size: 30px;
   }
-  .form-content {
+  .register .form-content {
     margin-top: 30px;
     display: inline-block;
     width: 400px;
   }
-  .whiteLabel .el-form-item__label{
+  .register .whiteLabel .el-form-item__label{
     color: #fff !important;
 
   }
