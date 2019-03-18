@@ -27,9 +27,10 @@ const user = {
     REMOVE_USERINFO: state => {
       state.token = ''
       state.userName = ''
+      state.idCard = ''
       state.role = ''
       Cookies.remove('userInfo')
-    },
+    }
   },
   // 相当于立即调用它的方法，官方文档是这么命名和这么写的
   actions: {
