@@ -12,7 +12,7 @@
           <el-form-item label="床型：" prop="bedType">
             <el-input v-model="ruleForm.bedType" style="width: 100%"></el-input>
           </el-form-item>
-          <el-form-item label="卫浴类型：" prop="bathroom">
+          <el-form-item label="房间头图：" prop="bathroom">
             <el-input v-model="ruleForm.bathroom" style="width: 100%"></el-input>
           </el-form-item>
           <el-form-item label="容纳人数：" prop="contain">

@@ -31,7 +31,7 @@
           <el-table-column
             sortable
             prop="bathroom"
-            label="卫浴类型">
+            label="房间头图">
           </el-table-column>
           <el-table-column
             sortable
@@ -105,7 +105,7 @@
         <!--卫浴类型-->
         <el-row>
           <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
-            <el-form-item label="卫浴类型：" prop="bathroom">
+            <el-form-item label="房间头图：" prop="bathroom">
               <el-input v-model="form.bathroom" style="width: 100%"></el-input>
             </el-form-item>
           </el-col>
@@ -195,10 +195,6 @@
         <div class="row">
           <span class="label">床型：</span>
           <span class="text">{{ detail.bedType }}</span>
-        </div>
-        <div class="row">
-          <span class="label">卫浴类型：</span>
-          <span class="text">{{ detail.bathroom }}</span>
         </div>
         <div class="row">
           <span class="label">容纳人数：</span>

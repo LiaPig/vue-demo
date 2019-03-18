@@ -14,37 +14,51 @@
       <el-button @click="searchCustomer">搜索客房</el-button>
     </div>
     <!--客房信息管理表格-->
-    <el-row class="aaa_table" v-loading="tableLoading" element-loading-text="拼命加载中">
-      <el-table
-        :data="tableData"
-        border
-        style="width: 100%">
-        <el-table-column
-          type="index"
-          width="80">
-        </el-table-column>
-        <el-table-column
-          sortable
-          prop="name"
-          label="房间号">
-        </el-table-column>
-        <el-table-column
-          sortable
-          prop="typeName"
-          label="房间类型">
-        </el-table-column>
-        <el-table-column
-          sortable
-          prop="nowStatus"
-          label="当前状态">
-        </el-table-column>
-        <el-table-column
-          label="操作">
-          <template slot-scope="scope">
-            <el-button @click="handleBook(scope.row)" type="text" size="small">预定入住</el-button>
-            <el-button @click="handleDetail(scope.row)" type="text" size="small" style="margin-left: 10px;color: #67C23A;">查看详情</el-button>
-          </template>
-        </el-table-column>
+    <el-row class="aaa_table" :gutter="50">
+      <template v-for="item in tableData">
+        <el-col :span="6">
+          <el-card :body-style="{ padding: '0px' }">
+            <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1552920747185&di=d6074652565c62021979dd744beeaea4&imgtype=0&src=http%3A%2F%2Fdimg04.c-ctrip.com%2Fimages%2F3005050000000kx4w5EB1.jpg" class="card-image">
+            <div style="padding: 14px;">
+              <span>{{ item.typeName }}</span>
+              <div class="bottom clearfix">
+                <el-button @click="handleBook(item)" type="text" class="button">预定入住</el-button>
+                <el-button @click="handleDetail(item)" type="text" style="margin-left: 10px;color: #67C23A;">查看详情</el-button>
+              </div>
+            </div>
+          </el-card>
+        </el-col>
+      </template>
+      <!--<el-table-->
+        <!--:data="tableData"-->
+        <!--border-->
+        <!--style="width: 100%">-->
+        <!--<el-table-column-->
+          <!--type="index"-->
+          <!--width="80">-->
+        <!--</el-table-column>-->
+        <!--<el-table-column-->
+          <!--sortable-->
+          <!--prop="name"-->
+          <!--label="房间号">-->
+        <!--</el-table-column>-->
+        <!--<el-table-column-->
+          <!--sortable-->
+          <!--prop="typeName"-->
+          <!--label="房间类型">-->
+        <!--</el-table-column>-->
+        <!--<el-table-column-->
+          <!--sortable-->
+          <!--prop="nowStatus"-->
+          <!--label="当前状态">-->
+        <!--</el-table-column>-->
+        <!--<el-table-column-->
+          <!--label="操作">-->
+          <!--<template slot-scope="scope">-->
+            <!--<el-button @click="handleBook(scope.row)" type="text" size="small">预定入住</el-button>-->
+            <!--<el-button @click="handleDetail(scope.row)" type="text" size="small" style="margin-left: 10px;color: #67C23A;">查看详情</el-button>-->
+          <!--</template>-->
+        <!--</el-table-column>-->
       </el-table>
     </el-row>
 
@@ -72,20 +86,12 @@
     <el-dialog title="查看客房信息详情" :visible.sync="showDetail">
       <div class="dialogDetail">
         <div class="row">
-          <span class="label">房间号：</span>
-          <span class="text">{{ detail.name }}</span>
-        </div>
-        <div class="row">
           <span class="label">当前状态：</span>
           <span class="text">{{ detail.nowStatus }}</span>
         </div>
         <div class="row">
           <span class="label">床型：</span>
           <span class="text">{{ detailDevice.bedType }}</span>
-        </div>
-        <div class="row">
-          <span class="label">卫浴类型：</span>
-          <span class="text">{{ detailDevice.bathroom }}</span>
         </div>
         <div class="row">
           <span class="label">容纳人数：</span>
@@ -249,5 +255,9 @@
 </script>
 
 <style scoped>
-
+  .card-image {
+    display: inline-block;
+    width: 100%;
+    height: 270px;
+  }
 </style>
