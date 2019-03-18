@@ -61,18 +61,22 @@
 
     <!--修改密码弹窗-->
     <el-dialog title="修改密码" :visible.sync="dialogFormVisible">
-      <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm">
-        <el-form-item label="密码" prop="pass">
-          <el-input type="password" v-model="ruleForm2.pass" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="确认密码" prop="checkPass">
-          <el-input type="password" v-model="ruleForm2.checkPass" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="submitPass('ruleForm2')">提交</el-button>
-          <el-button @click="resetForm('ruleForm2')">重置</el-button>
-        </el-form-item>
-      </el-form>
+      <el-row>
+        <el-col :span="12" :offset="6">
+          <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm">
+            <el-form-item label="密码" prop="pass">
+              <el-input type="password" v-model="ruleForm2.pass" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="确认密码" prop="checkPass">
+              <el-input type="password" v-model="ruleForm2.checkPass" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item>
+              <el-button type="primary" @click="submitPass('ruleForm2')">提交</el-button>
+              <el-button @click="resetForm('ruleForm2')">重置</el-button>
+            </el-form-item>
+          </el-form>
+        </el-col>
+      </el-row>
     </el-dialog>
   </div>
 </template>
@@ -217,18 +221,33 @@
       editPass() {
         this.dialogFormVisible = true
       },
-      //
+      // 点击了修改密码弹窗里的提交按钮
       submitPass(formName) {
-        this.$refs[formName].validate((valid) => {
+        this.$refs[formName].validate(async (valid) => {
           if (valid) {
-            alert('submit!');
+            const params = {
+              id: this.form.id,
+              password: this.ruleForm2.pass
+            }
+            const res = await User_api.updateCustomer(params)
+            if(res.data.code === 0) {
+              this.$store.commit('REMOVE_USERINFO')
+              this.$notify({
+                title: '修改密码成功！',
+                message: '请重新登录',
+                type: 'success'
+              });
+              this.$router.push({path: '/login'});
+            } else {
+              this.$message.warning(res.data.data)
+            }
           } else {
             console.log('error submit!!');
             return false;
           }
         });
       },
-      //
+      // 点击了修改密码弹窗里的重置
       resetForm(formName) {
         this.$refs[formName].resetFields();
       }
