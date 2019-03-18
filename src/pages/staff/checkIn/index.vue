@@ -169,7 +169,7 @@
               <el-date-picker
                 v-model="dynamicValidateForm.endTime"
                 type="date"
-                placeholder="选择出生日期"
+                placeholder="选择退房日期"
                 style="width: 100%"
                 format="yyyy-MM-dd"
                 value-format="yyyy-MM-dd">

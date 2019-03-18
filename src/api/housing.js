@@ -24,4 +24,17 @@ export default class housing {
     return request.post(`${this.cfg.Base_url}/checkOut`, data)
   }
 
+  // 预定房间
+  bookRoom(data) {
+    return request.post(`${this.cfg.Base_url}/bookRoom`, data)
+  }
+  // 取消预定
+  cancelBook(data) {
+    return request.post(`${this.cfg.Base_url}/cancelBook`, data)
+  }
+  // 获取预约列表
+  getBookList(data) {
+    return request.post(`${this.cfg.Base_url}/getbooklist`, data)
+  }
+
 }

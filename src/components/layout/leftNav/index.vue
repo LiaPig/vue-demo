@@ -165,6 +165,28 @@
               }
             ]
           },
+          {
+            path: '/customer/room',
+            title: '客房信息列表',
+            icon: 'el-icon-setting',
+            children: [
+              {
+                path: '/customer/room',
+                title: '可预定客房列表',
+              }
+            ]
+          },
+          {
+            path: '/customer/my',
+            title: '我的预约列表',
+            icon: 'el-icon-setting',
+            children: [
+              {
+                path: '/customer/my',
+                title: '我的预约列表',
+              }
+            ]
+          },
         ],
         // 显示的菜单
         menuList: []

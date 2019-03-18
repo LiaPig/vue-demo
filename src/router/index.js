@@ -39,7 +39,10 @@ import staffBill from '@/pages/staff/bill'
 // 客户的页面
 // 更新个人信息
 import updateInformation from '@/pages/customer/updateInformation'
-
+// 客房信息列表
+import customerRoom from '@/pages/customer/room'
+// 我的预约列表
+import customerMyRoom from '@/pages/customer/myBookRoom'
 
 
 
@@ -188,6 +191,7 @@ const routes = [
         }
       },
       // 客户的页面
+      // 更新个人信息
       {
         path: '/customer/updateInformation',
         component: updateInformation,
@@ -196,7 +200,24 @@ const routes = [
           requiresAuth: true
         }
       },
-
+      // 客房信息列表
+      {
+        path: '/customer/room',
+        component: customerRoom,
+        // 需要权限验证，路由拦截
+        meta: {
+          requiresAuth: true
+        }
+      },
+      // 我的预约列表
+      {
+        path: '/customer/my',
+        component: customerMyRoom,
+        // 需要权限验证，路由拦截
+        meta: {
+          requiresAuth: true
+        }
+      },
     ]
   }
 ]
