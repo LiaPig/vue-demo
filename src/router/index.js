@@ -37,6 +37,7 @@ import staffCheckOut from '@/pages/staff/checkOut'
 // 账单信息管理
 import staffBill from '@/pages/staff/bill'
 // 客户的页面
+import customer from '@/pages/customer'
 // 更新个人信息
 import updateInformation from '@/pages/customer/updateInformation'
 // 客房信息列表
@@ -70,6 +71,42 @@ const routes = [
       requiresAuth: false
     }
   },
+  // 客户的页面,需要权限验证，路由拦截
+  // 更新个人信息
+  // 客房信息列表 customer
+  {
+    path: '/customer',
+    redirect: '/customer/room',
+    name: 'customer',
+    component: customer,
+    children: [
+      {
+        path: 'updateInformation',
+        component: updateInformation,
+        // 需要权限验证，路由拦截
+        meta: {
+          requiresAuth: true
+        }
+      },
+      {
+        path: 'room',
+        component: customerRoom,
+        // 需要权限验证，路由拦截
+        meta: {
+          requiresAuth: true
+        }
+      },
+      // 我的预约列表
+      {
+        path: 'my',
+        component: customerMyRoom,
+        // 需要权限验证，路由拦截
+        meta: {
+          requiresAuth: true
+        }
+      },
+    ]
+  },
   // 有顶部和左边菜单，中间能显示别的页面的基础组件
   {
     path: '*',
@@ -84,7 +121,7 @@ const routes = [
         component: home,
         // 不需要权限验证，路由拦截
         meta: {
-          requiresAuth: false
+          requiresAuth: true
         }
       },
 
@@ -190,36 +227,9 @@ const routes = [
           requiresAuth: true
         }
       },
-      // 客户的页面
-      // 更新个人信息
-      {
-        path: '/customer/updateInformation',
-        component: updateInformation,
-        // 需要权限验证，路由拦截
-        meta: {
-          requiresAuth: true
-        }
-      },
-      // 客房信息列表
-      {
-        path: '/customer/room',
-        component: customerRoom,
-        // 需要权限验证，路由拦截
-        meta: {
-          requiresAuth: true
-        }
-      },
-      // 我的预约列表
-      {
-        path: '/customer/my',
-        component: customerMyRoom,
-        // 需要权限验证，路由拦截
-        meta: {
-          requiresAuth: true
-        }
-      },
     ]
-  }
+  },
+
 ]
 
 // 页面刷新时，重新赋值有没登录

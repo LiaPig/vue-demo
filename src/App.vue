@@ -99,4 +99,39 @@
   .form-container {
     margin-top: 50px;
   }
+  .left-nav {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 200px;
+    height: 100%;
+    background-color: rgb(67, 74, 80);
+  }
+  .top-nav {
+    position: absolute;
+    left: 200px;
+    width: calc(100% - 200px);
+  }
+  .content {
+    padding: 20px;
+    position: absolute;
+    left: 200px;
+    top: 68px;
+    width: calc(100% - 200px - 40px);
+    height: calc(100% - 68px - 40px);
+    overflow-y: auto;
+    background-color: #fff;
+  }
+  .my-title {
+    display: inline-block;
+    width: calc(100%);
+    height: 30px;
+    line-height: 30px;
+    text-align: left;
+    background-color: #fff;
+    border-bottom: 1px solid #d8dce5;
+  }
+  .el-pagination {
+    margin-top: 50px;
+  }
 </style>

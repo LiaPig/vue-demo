@@ -90,7 +90,11 @@
               }
               this.$store.commit('SET_USERINFO', data);
               Cookies.set('userInfo', data)
-              this.$router.push({path: '/home'});
+              if (this.loginForm.role === 'customer') {
+                this.$router.push({path: '/customer/room'});
+              } else {
+                this.$router.push({path: '/home'});
+              }
             }
             else {
               this.$message({
