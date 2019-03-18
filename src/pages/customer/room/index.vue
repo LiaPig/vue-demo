@@ -29,37 +29,6 @@
           </el-card>
         </el-col>
       </template>
-      <!--<el-table-->
-        <!--:data="tableData"-->
-        <!--border-->
-        <!--style="width: 100%">-->
-        <!--<el-table-column-->
-          <!--type="index"-->
-          <!--width="80">-->
-        <!--</el-table-column>-->
-        <!--<el-table-column-->
-          <!--sortable-->
-          <!--prop="name"-->
-          <!--label="房间号">-->
-        <!--</el-table-column>-->
-        <!--<el-table-column-->
-          <!--sortable-->
-          <!--prop="typeName"-->
-          <!--label="房间类型">-->
-        <!--</el-table-column>-->
-        <!--<el-table-column-->
-          <!--sortable-->
-          <!--prop="nowStatus"-->
-          <!--label="当前状态">-->
-        <!--</el-table-column>-->
-        <!--<el-table-column-->
-          <!--label="操作">-->
-          <!--<template slot-scope="scope">-->
-            <!--<el-button @click="handleBook(scope.row)" type="text" size="small">预定入住</el-button>-->
-            <!--<el-button @click="handleDetail(scope.row)" type="text" size="small" style="margin-left: 10px;color: #67C23A;">查看详情</el-button>-->
-          <!--</template>-->
-        <!--</el-table-column>-->
-      </el-table>
     </el-row>
 
     <!--入住弹出框-->
@@ -223,7 +192,6 @@
 
       // 点击某一行里的预约按钮
       handleBook(data) {
-        console.log(data)
         // 把这一行的数据给到弹窗
         this.bookData = {
           bedType: data.typeName,
