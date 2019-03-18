@@ -189,7 +189,6 @@
         this.showDetail = true;
       },
 
-
       // 点击某一行里的预约按钮
       handleBook(data) {
         // 把这一行的数据给到弹窗
@@ -211,9 +210,9 @@
         const res = await Housing_api.bookRoom(this.bookData)
         if(res.data.code === 0) {
           this.$message.success("预定入住成功！")
-          // this.getTableData()
+          this.getTableData()
           // 关闭弹窗
-          this.showCheckIn = false
+          this.showBook = false
         } else {
           this.$message.warning(res.data.data)
         }

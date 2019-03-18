@@ -16,8 +16,8 @@
         <el-option
           v-for="item in options"
           :key="item.value"
-          :label="item.label"
-          :value="item.value">
+          :label="item.name"
+          :value="item.name">
         </el-option>
       </el-select>
       <el-button @click="searchCustomer">搜索客房</el-button>
@@ -38,19 +38,24 @@
             prop="roomId"
             label="房间类型ID">
           </el-table-column>
-
           <el-table-column
             sortable
-            label="创建时间">
+            label="预定入住时间">
             <template slot-scope="scope">
-              {{ baseJs.formatDate.format(new Date(scope.row.createTime), 'yyyy-MM-dd hh:mm:ss') }}
+              {{ baseJs.formatDate.format(new Date(scope.row.planInTime), 'yyyy-MM-dd') }}
+            </template>
+          </el-table-column>
+          <el-table-column
+            sortable
+            label="预定退房时间">
+            <template slot-scope="scope">
+              {{ baseJs.formatDate.format(new Date(scope.row.planOutTime), 'yyyy-MM-dd') }}
             </template>
           </el-table-column>
           <el-table-column
             label="操作">
             <template slot-scope="scope">
-              <el-button @click="handleDelete(scope.row)" type="text" size="small" style="color: #F56C6C;">删除</el-button>
-              <el-button @click="handleEdit(scope.row)" type="text" size="small" style="margin-left: 10px;">编辑</el-button>
+              <el-button @click="handleCancel(scope.row)" type="text" size="small" style="color: #F56C6C;">取消预定</el-button>
               <el-button @click="handleDetail(scope.row)" type="text" size="small" style="margin-left: 10px;color: #67C23A;">查看详情</el-button>
             </template>
           </el-table-column>
@@ -310,7 +315,6 @@
         // 调用后台api，进行交互
         const res = await Hotel_api.getDevice()
         if (res.data.code === 0) {
-          console.log(res.data.data)
           this.options = res.data.data
         } else {
           this.$message.warning(res.data.data)
@@ -335,32 +339,15 @@
         // 调用后台api，进行交互
         const res = await Housing_api.getBookList(params)
         if (res.data.code === 0) {
-          this.tableData = res.data.data
+          // this.tableData = res.data.data
+          this.tableData.push(res.data.data)
         } else {
           this.$message.warning(res.data.data)
         }
         // 关闭loading动画
         this.tableLoading = false;
       },
-      // 点击某一行里的编辑按钮
-      handleEdit(data) {
-        // 打开弹窗
-        this.showDialog = true
-        // 把这一行的数据给到表单
-        this.form = {
-          id: data.id,
-          name: data.name,
-          bedType: data.bedType,
-          bathroom: data.bathroom,
-          contain: data.contain,
-          casement: data.casement,
-          wifi: data.wifi,
-          wifiName: data.wifiName,
-          wifiPassword: data.wifiPassword,
-          size: data.size,
-          price: data.price
-        }
-      },
+
       // 点击弹窗里的确认按钮
       formSubmit() {
         this.$refs["form"].validate(async(valid) => {
@@ -382,16 +369,21 @@
         });
       },
       // 点击某一行里的删除按钮
-      handleDelete(data) {
-        this.$confirm('此操作将删除该房间类型, 是否继续?', '提示', {
+      handleCancel(data) {
+        this.$confirm('此操作将取消预定此房间, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(async() => {
+          console.log()
           const params = {
-            id: data.id
+            bedType: this.searchBedType,
+            idCard: data.idCard,
+            planInTime: data.planInTime,
+            planOutTime: data.planOutTime
           }
-          const res = await Hotel_api.deleteDevice(params)
+          console.log(params)
+          const res = await Housing_api.cancelBook(params)
           if (res.data.code === 0) {
             this.$message.success('删除成功！')
             this.getTableData();
