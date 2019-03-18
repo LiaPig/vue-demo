@@ -11,8 +11,10 @@ const user = {
     token: userInfo.token || '',
     // 用户名,userInfo有就赋值，没就为'unknown'
     userName: userInfo.user || 'unknown',
+    // 身份证,
+    idCard: userInfo.idCard || '',
     // 角色
-    role: userInfo.role
+    role: userInfo.role || ''
   },
 
   // 相当于它的方法，各种get和set，官方文档是这么命名和这么写的
