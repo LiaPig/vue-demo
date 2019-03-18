@@ -85,6 +85,7 @@
               const data = {
                 token: res.data.data[0],
                 userName: res.data.data[1].userName,
+                idCard: res.data.data[1].idCard ? res.data.data[1].idCard : '',
                 role: this.loginForm.role
               }
               this.$store.commit('SET_USERINFO', data);
