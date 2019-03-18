@@ -375,7 +375,6 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(async() => {
-          console.log()
           const params = {
             bedType: this.searchBedType,
             idCard: data.idCard,
@@ -385,7 +384,7 @@
           console.log(params)
           const res = await Housing_api.cancelBook(params)
           if (res.data.code === 0) {
-            this.$message.success('删除成功！')
+            this.$message.success('取消预定成功！')
             this.getTableData();
           } else {
             this.$message.warning(res.data.data)
