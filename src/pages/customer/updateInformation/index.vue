@@ -10,6 +10,10 @@
           <el-form-item prop="loginName" label="登录账号：">
             <el-input v-model="form.loginName" disabled placeholder="请输入登录账号"></el-input>
           </el-form-item>
+          <!--身份证号-->
+          <el-form-item prop="idCard" label="身份证号：">
+            <el-input v-model="form.idCard" disabled placeholder="请输入身份证号"></el-input>
+          </el-form-item>
           <!--登录密码-->
           <el-form-item prop="loginName" label="登录密码：" style="text-align: left;cursor: pointer;color: #409EFF;">
             <span @click="editPass">修改密码</span>
@@ -29,10 +33,7 @@
               <el-option label="女" value="女"></el-option>
             </el-select>
           </el-form-item>
-          <!--身份证号-->
-          <el-form-item prop="idCard" label="身份证号：">
-            <el-input v-model="form.idCard" placeholder="请输入身份证号"></el-input>
-          </el-form-item>
+
           <!--民族-->
           <el-form-item prop="nation" label="民族：">
             <el-input v-model="form.nation" placeholder="请输入民族"></el-input>
@@ -178,18 +179,21 @@
     methods: {
       // 获取个人信息数据
       async getFormData() {
+        const params = {
+          idCard: this.$store.getters.idCard
+        }
         // 调用获取个人信息接口
-        // const res = await User_api.updateCustomer(this.form)
-        // if (res.data.code === 0) {
-        //   this.form = res.data.data
-        // }
-        // // 错误，显示错误
-        // else {
-        //   this.$message({
-        //     message: res.data.message,
-        //     type: 'warning'
-        //   });
-        // }
+        const res = await User_api.getCustomerByIdCard(params)
+        if (res.data.code === 0) {
+          this.form = res.data.data
+        }
+        // 错误，显示错误
+        else {
+          this.$message({
+            message: res.data.message,
+            type: 'warning'
+          });
+        }
       },
       // 点击了提交按钮
       submitForm() {
@@ -225,11 +229,8 @@
       submitPass(formName) {
         this.$refs[formName].validate(async (valid) => {
           if (valid) {
-            const params = {
-              id: this.form.id,
-              password: this.ruleForm2.pass
-            }
-            const res = await User_api.updateCustomer(params)
+            this.form.password = this.ruleForm2.pass
+            const res = await User_api.updateCustomer(this.form)
             if(res.data.code === 0) {
               this.$store.commit('REMOVE_USERINFO')
               this.$notify({
