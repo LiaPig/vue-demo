@@ -10,8 +10,8 @@
       <div class="form-content">
         <el-form :model="registerForm" ref="registerForm" :rules="rules" label-width="120px">
           <!--登录账号-->
-          <el-form-item prop="registerName" label="登录账号：" class="whiteLabel">
-            <el-input v-model="registerForm.registerName" placeholder="请输入登录账号"></el-input>
+          <el-form-item prop="loginName" label="登录账号：" class="whiteLabel">
+            <el-input v-model="registerForm.loginName" placeholder="请输入登录账号"></el-input>
           </el-form-item>
           <!--密码-->
           <el-form-item prop="password" label="密码：" class="whiteLabel">
@@ -88,7 +88,7 @@
       return {
         // 表单数据
         registerForm: {
-          registerName: "",
+          loginName: "",
           password: "",
           password2: null,
           userName: null,
@@ -101,7 +101,7 @@
         },
         // 表单验证
         rules: {
-          registerName: [
+          loginName: [
             { required: true, message: '请输入登录账号', trigger: 'blur' }
           ],
           password: [
@@ -155,7 +155,7 @@
                 message: '已前往登录',
                 type: 'success'
               });
-              this.$router.push({path: '/register'});
+              this.$router.push({path: '/login'});
             }
             else {
               this.$message({
