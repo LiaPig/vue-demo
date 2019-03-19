@@ -19,13 +19,6 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="当前状态：" prop="nowStatus">
-            <el-select v-model="ruleForm.nowStatus" placeholder="请选择当前状态" style="width: 100%">
-              <el-option label="空闲" value="空闲"></el-option>
-              <el-option label="预定" value="预定"></el-option>
-              <el-option label="入住" value="入住"></el-option>
-            </el-select>
-          </el-form-item>
           <!--按钮-->
           <el-form-item>
             <el-button type="primary" @click="submitForm()">立即创建</el-button>

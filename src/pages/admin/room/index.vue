@@ -78,18 +78,6 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <!--当前状态-->
-        <el-row>
-          <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
-            <el-form-item label="当前状态：" prop="nowStatus">
-              <el-select v-model="form.nowStatus" placeholder="请选择当前状态" style="width: 100%">
-                <el-option label="空闲" value="空闲"></el-option>
-                <el-option label="预定" value="预定"></el-option>
-                <el-option label="入住" value="入住"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-        </el-row>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="showDialog = false">取 消</el-button>
