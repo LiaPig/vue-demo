@@ -67,7 +67,7 @@
         <el-row>
           <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
             <el-form-item label="房间类型：" prop="type">
-              <el-select v-model="form.type" placeholder="请选择房间类型" style="width: 100%">
+              <el-select v-model="form.type" placeholder="请选择房间类型" style="width: 100%" disabled>
                 <el-option
                   v-for="item in options"
                   :key="item.id"
