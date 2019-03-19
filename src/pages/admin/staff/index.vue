@@ -64,7 +64,7 @@
           <el-row>
             <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
               <el-form-item label="登录账号：" prop="loginName">
-                <el-input v-model="form.loginName" style="width: 100%"></el-input>
+                <el-input v-model="form.loginName" disabled style="width: 100%"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
