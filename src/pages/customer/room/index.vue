@@ -13,6 +13,8 @@
     </el-date-picker>
       <el-button @click="searchCustomer">搜索客房</el-button>
     </div>
+    <!--空空如也的显示-->
+    <div v-if="isNull" style="margin-top: 50px">暂时没有可以预约入住的房间</div>
     <!--客房信息管理表格-->
     <el-row class="aaa_table" :gutter="50">
       <template v-for="item in tableData">
@@ -30,6 +32,7 @@
         </el-col>
       </template>
     </el-row>
+
 
     <!--入住弹出框-->
     <el-dialog title="请确认预约客房信息" :visible.sync="showBook">
@@ -105,6 +108,8 @@
       return {
         // 搜索框中的日期区间
         searchDate: [],
+        // 是否是空的
+        isNull: false,
         // 表格数据
         tableData: [],
         // 表格的loading
@@ -161,19 +166,26 @@
         // 调用后台api，进行交互
         const res = await Housing_api.searchHome(params)
         // console.log(res)
+        // 过滤掉只剩下空闲的
+        this.tableData = []
         if (res.data.code === 0) {
-          // 过滤掉只剩下空闲的
-          this.tableData = []
-          for(let item of res.data.data) {
-            if (item.nowStatus === '空闲') {
-              for (let type of this.options) {
-                if (type.name === item.typeName) {
-                  item.url = type.bathroom
-                  break
+          if (res.data.data.length > 0) {
+            this.isNull = false
+            // 过滤掉只剩下空闲的
+            this.tableData = []
+            for(let item of res.data.data) {
+              if (item.nowStatus === '空闲') {
+                for (let type of this.options) {
+                  if (type.name === item.typeName) {
+                    item.url = type.bathroom
+                    break
+                  }
                 }
+                this.tableData.push(item)
               }
-              this.tableData.push(item)
             }
+          } else {
+            this.isNull = true
           }
         } else {
           this.$message.warning(res.data.data)
@@ -233,4 +245,5 @@
     width: 100%;
     height: 270px;
   }
+
 </style>
