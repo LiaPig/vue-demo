@@ -18,7 +18,7 @@
       <template v-for="item in tableData">
         <el-col :span="6">
           <el-card :body-style="{ padding: '0px' }">
-            <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1552920747185&di=d6074652565c62021979dd744beeaea4&imgtype=0&src=http%3A%2F%2Fdimg04.c-ctrip.com%2Fimages%2F3005050000000kx4w5EB1.jpg" class="card-image">
+            <img :src="item.url" class="card-image">
             <div style="padding: 14px;">
               <span>{{ item.typeName }}</span>
               <div class="bottom clearfix">
@@ -166,6 +166,12 @@
           this.tableData = []
           for(let item of res.data.data) {
             if (item.nowStatus === '空闲') {
+              for (let type of this.options) {
+                if (type.name === item.typeName) {
+                  item.url = type.bathroom
+                  break
+                }
+              }
               this.tableData.push(item)
             }
           }

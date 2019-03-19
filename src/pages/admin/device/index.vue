@@ -30,11 +30,6 @@
           </el-table-column>
           <el-table-column
             sortable
-            prop="bathroom"
-            label="房间头图">
-          </el-table-column>
-          <el-table-column
-            sortable
             prop="contain"
             label="容纳人数">
           </el-table-column>
@@ -276,7 +271,7 @@
             { required: true, message: '请填写床型', trigger: 'blur' }
           ],
           bathroom: [
-            { required: true, message: '请填写卫浴类型', trigger: 'blur' }
+            { required: true, message: '请填写房间头图url', trigger: 'blur' }
           ],
           contain: [
             { required: true, message: '请输入容纳人数', trigger: 'blur' },

@@ -35,8 +35,8 @@
           </el-table-column>
           <el-table-column
             sortable
-            prop="roomId"
-            label="房间类型ID">
+            prop="bedType"
+            label="房间类型">
           </el-table-column>
           <el-table-column
             sortable
@@ -339,8 +339,7 @@
         // 调用后台api，进行交互
         const res = await Housing_api.getBookList(params)
         if (res.data.code === 0) {
-          // this.tableData = res.data.data
-          this.tableData.push(res.data.data)
+          this.tableData = res.data.data
         } else {
           this.$message.warning(res.data.data)
         }
