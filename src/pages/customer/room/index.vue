@@ -209,15 +209,21 @@
 
       // 点击某一行里的预约按钮
       handleBook(data) {
-        // 把这一行的数据给到弹窗
-        this.bookData = {
-          bedType: data.typeName,
-          idCard: this.$store.getters.idCard,
-          planInTime: new Date(this.searchDate[0]),
-          planOutTime: new Date(this.searchDate[1]),
+        if (this.$store.getters.token) {
+          // 把这一行的数据给到弹窗
+          this.bookData = {
+            bedType: data.typeName,
+            idCard: this.$store.getters.idCard,
+            planInTime: new Date(this.searchDate[0]),
+            planOutTime: new Date(this.searchDate[1]),
+          }
+          // 打开弹窗
+          this.showBook = true
         }
-        // 打开弹窗
-        this.showBook = true
+        else {
+          this.$message.warning('请先登录！')
+          this.$router.push({path: '/login'});
+        }
       },
       // 点击弹窗里的确认预定按钮
       async submitBook() {

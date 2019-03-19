@@ -9,7 +9,12 @@
           <el-dropdown-item command="update">更新个人信息</el-dropdown-item>
           <el-dropdown-item command="book">我要预约房间</el-dropdown-item>
           <el-dropdown-item command="my">我的预定列表</el-dropdown-item>
-          <el-dropdown-item command="exit">退出登录</el-dropdown-item>
+          <tepate v-if="token">
+            <el-dropdown-item command="exit">退出登录</el-dropdown-item>
+          </tepate>
+          <template v-else>
+            <el-dropdown-item command="login">我要登录</el-dropdown-item>
+          </template>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
@@ -26,7 +31,7 @@
     },
     computed: {
       ...mapGetters([
-        'userName'
+        'token'
       ]),
     },
     methods: {
@@ -48,6 +53,9 @@
         }
         else if (command === "book") {
           this.$router.push({path: '/customer/room'});
+        }
+        else if (command === "login") {
+          this.$router.push({path: '/login'});
         }
       },
       // 点击了酒店首页

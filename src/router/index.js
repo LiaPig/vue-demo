@@ -93,7 +93,7 @@ const routes = [
         component: customerRoom,
         // 需要权限验证，路由拦截
         meta: {
-          requiresAuth: true
+          requiresAuth: false
         }
       },
       // 我的预约列表
