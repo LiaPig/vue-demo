@@ -309,7 +309,13 @@
         const res = await Housing_api.canCheckIn()
         // console.log(res)
         if (res.data.code === 0) {
-          this.tableData = res.data.data
+          this.tableData = []
+          // 后台返回的数据有三种状态，入住、空闲、预约，不显示入住的
+          for (let item of res.data.data) {
+            if (item.nowStatus !== '入住') {
+              this.tableData.push(item)
+            }
+          }
         } else {
           this.$message.warning(res.data.data)
         }
