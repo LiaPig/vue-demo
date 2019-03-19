@@ -82,7 +82,7 @@
         <!--登录账号-->
         <el-row>
           <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
-            <el-form-item prop="loginName" label="登录账号：" class="whiteLabel">
+            <el-form-item prop="loginName" label="登录账号：">
               <el-input v-model="form.loginName" disabled placeholder="请输入登录账号"></el-input>
             </el-form-item>
           </el-col>
@@ -90,7 +90,7 @@
         <!--密码-->
         <el-row>
           <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
-            <el-form-item prop="password" label="密码：" class="whiteLabel">
+            <el-form-item prop="password" label="密码：">
               <el-input v-model="form.password" placeholder="请输入密码" type="password"></el-input>
             </el-form-item>
           </el-col>
@@ -98,7 +98,7 @@
         <!--真实姓名-->
         <el-row>
           <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
-            <el-form-item prop="userName" label="真实姓名：" class="whiteLabel">
+            <el-form-item prop="userName" label="真实姓名：">
               <el-input v-model="form.userName" placeholder="请输入真实姓名"></el-input>
             </el-form-item>
           </el-col>
@@ -106,7 +106,7 @@
         <!--手机号码-->
         <el-row>
           <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
-            <el-form-item prop="phone" label="手机号码：" class="whiteLabel">
+            <el-form-item prop="phone" label="手机号码：">
               <el-input v-model="form.phone" placeholder="请输入手机号码"></el-input>
             </el-form-item>
           </el-col>
@@ -114,7 +114,7 @@
         <!--性别-->
         <el-row>
           <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
-            <el-form-item prop="sex" label="性别：" class="whiteLabel">
+            <el-form-item prop="sex" label="性别：">
               <el-select v-model="form.sex" placeholder="请选择性别" style="width: 100%">
                 <el-option label="男" value="男"></el-option>
                 <el-option label="女" value="女"></el-option>
@@ -125,7 +125,7 @@
         <!--身份证号-->
         <el-row>
           <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
-            <el-form-item prop="idCard" label="身份证号：" class="whiteLabel">
+            <el-form-item prop="idCard" label="身份证号：">
               <el-input v-model="form.idCard" placeholder="请输入身份证号"></el-input>
             </el-form-item>
           </el-col>
@@ -133,7 +133,7 @@
         <!--民族-->
         <el-row>
           <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
-            <el-form-item prop="nation" label="民族：" class="whiteLabel">
+            <el-form-item prop="nation" label="民族：">
               <el-input v-model="form.nation" placeholder="请输入民族"></el-input>
             </el-form-item>
           </el-col>
@@ -141,7 +141,7 @@
         <!--出生日期-->
         <el-row>
           <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
-            <el-form-item prop="birth" label="出生日期：" class="whiteLabel">
+            <el-form-item prop="birth" label="出生日期：">
               <el-date-picker
                 v-model="form.birth"
                 type="date"
@@ -156,7 +156,7 @@
         <!--身份证住址-->
         <el-row>
           <el-col :span="12" :offset="6" style="height: 40px;margin-bottom: 20px;">
-            <el-form-item prop="address" label="身份证住址：" class="whiteLabel">
+            <el-form-item prop="address" label="身份证住址：">
               <el-input v-model="form.address" placeholder="请输入身份证住址"></el-input>
             </el-form-item>
           </el-col>
