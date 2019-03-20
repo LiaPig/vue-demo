@@ -41,153 +41,26 @@
         // 管理员菜单
         adminMenu: [
           // 员工信息管理
-          {
-            path: '/admin/staff',
-            title: '员工信息管理',
-            icon: 'el-icon-setting',
-            children: [
-              {
-                path: '/admin/staff',
-                title: '员工信息管理',
-              },
-              {
-                path: '/admin/staff/add',
-                title: '新增员工信息',
-              }
-            ]
-          },
-          // 客户信息管理
-          {
-            path: '/admin/customer',
-            title: '客户信息管理',
-            icon: 'el-icon-setting',
-            children: [
-              {
-                path: '/admin/customer',
-                title: '客户信息管理',
-              }
-            ]
-          },
-          // 房间类型管理
-          {
-            path: '/admin/device',
-            title: '房间类型管理',
-            icon: 'el-icon-setting',
-            children: [
-              {
-                path: '/admin/device',
-                title: '房间类型管理',
-              },
-              {
-                path: '/admin/device/add',
-                title: '新增房间类型',
-              }
-            ]
-          },
-          // 客房信息管理
-          {
-            path: '/admin/room',
-            title: '客房信息管理',
-            icon: 'el-icon-setting',
-            children: [
-              {
-                path: '/admin/room',
-                title: '客房信息管理',
-              },
-              {
-                path: '/admin/room/add',
-                title: '新增客房信息',
-              }
-            ]
-          },
+          // {
+          //   path: '/admin/staff',
+          //   title: '员工信息管理',
+          //   icon: 'el-icon-setting',
+          //   children: [
+          //     {
+          //       path: '/admin/staff',
+          //       title: '员工信息管理',
+          //     },
+          //     {
+          //       path: '/admin/staff/add',
+          //       title: '新增员工信息',
+          //     }
+          //   ]
+          // },
         ],
         // 员工菜单
-        staffMenu: [
-          // 客房信息管理
-          {
-            path: '/staff/room',
-            title: '客房信息管理',
-            icon: 'el-icon-setting',
-            children: [
-              {
-                path: '/staff/room',
-                title: '查询所有客房',
-              }
-            ]
-          },
-          // 入住房间管理
-          {
-            path: '/staff/checkIn',
-            title: '入住房间管理',
-            icon: 'el-icon-setting',
-            children: [
-              {
-                path: '/staff/checkIn',
-                title: '入住房间管理',
-              }
-            ]
-          },
-          // 退还房间管理
-          {
-            path: '/staff/checkOut',
-            title: '退还房间管理',
-            icon: 'el-icon-setting',
-            children: [
-              {
-                path: '/staff/checkOut',
-                title: '退还房间管理',
-              }
-            ]
-          },
-          // 账单信息管理
-          {
-            path: '/staff/bill',
-            title: '账单信息管理',
-            icon: 'el-icon-setting',
-            children: [
-              {
-                path: '/staff/bill',
-                title: '账单信息管理',
-              }
-            ]
-          },
-        ],
+        staffMenu: [],
         // 客户菜单
-        customerMenu: [
-          {
-            path: '/customer/updateInformation',
-            title: '更新个人信息',
-            icon: 'el-icon-setting',
-            children: [
-              {
-                path: '/customer/updateInformation',
-                title: '更新个人信息',
-              }
-            ]
-          },
-          {
-            path: '/customer/room',
-            title: '客房信息列表',
-            icon: 'el-icon-setting',
-            children: [
-              {
-                path: '/customer/room',
-                title: '可预定客房列表',
-              }
-            ]
-          },
-          {
-            path: '/customer/my',
-            title: '我的预约列表',
-            icon: 'el-icon-setting',
-            children: [
-              {
-                path: '/customer/my',
-                title: '我的预约列表',
-              }
-            ]
-          },
-        ],
+        customerMenu: [],
         // 显示的菜单
         menuList: []
       }
